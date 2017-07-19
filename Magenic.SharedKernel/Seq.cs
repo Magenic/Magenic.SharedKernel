@@ -11,7 +11,7 @@ namespace Magenic.SharedKernel
     /// <remarks>A sequence is any data structure that implements the IEnumerable interface.</remarks>
     public static class Seq
     {
-        #region Fields
+        #region Constants
 
         /// <summary>
         /// String representation of comma followed by space.
@@ -22,6 +22,15 @@ namespace Magenic.SharedKernel
         /// String representation of period.
         /// </summary>
         private const string PERIOD = ".";
+
+        #endregion
+
+        #region Fields
+
+        /// <summary>
+        /// Random object with a non-time dependent seed.
+        /// </summary>
+        private static readonly Random _random = RandomEx.Create();
 
         /// <summary>
         /// Session Id.
@@ -720,8 +729,7 @@ namespace Magenic.SharedKernel
         /// <returns>Session Id.</returns>
         private static string GenerateSessionId()
         {
-            string randomString = RandomEx
-                 .Create()
+            string randomString = _random
                  .NextString(4, 8, StringComposition.Letter);
             long ticks = DateTime.UtcNow.Ticks;
             string guid = Guid.NewGuid().ToUpper();
