@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Magenic.SharedKernel.Tests
@@ -10,6 +12,8 @@ namespace Magenic.SharedKernel.Tests
     /// </summary>
     public class ConversionTests 
     {
+        #region Public Methods
+
         /// <summary>
         /// Verifies a string CSV of enum names can be converted to a list of enum values.
         /// </summary>
@@ -18,6 +22,7 @@ namespace Magenic.SharedKernel.Tests
         {
             IList<DayOfWeek> items = Conversion.ToEnumList<DayOfWeek>(
                 "Monday,Wednesday", ",");
+
             items.Should().BeEquivalentTo(new[] { DayOfWeek.Monday, DayOfWeek.Wednesday });
         }
 
@@ -29,6 +34,7 @@ namespace Magenic.SharedKernel.Tests
         {
             IList<DayOfWeek> items = Conversion.ToEnumList<DayOfWeek>(
                 "0,2", ",");
+
             items.Should().BeEquivalentTo(new[] { DayOfWeek.Sunday, DayOfWeek.Tuesday });
         }
 
@@ -38,7 +44,9 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Can_Convert_Enum_String_Names_Array_To_List()
         {
-            IList<DayOfWeek> items =  Conversion.ToEnumList<DayOfWeek>(new[] { "Monday", "Tuesday" });
+            IList<DayOfWeek> items =  Conversion.ToEnumList<DayOfWeek>(
+                new[] { "Monday", "Tuesday" });
+
             items.Should().BeEquivalentTo(new[] { DayOfWeek.Monday, DayOfWeek.Tuesday });
         }
 
@@ -49,6 +57,7 @@ namespace Magenic.SharedKernel.Tests
         public void Can_Convert_Enum_String_Values_Array_To_List()
         {
             IList<DayOfWeek> items = Conversion.ToEnumList<DayOfWeek>(new[] { "4", "5" });
+
             items.Should().BeEquivalentTo(new[] { DayOfWeek.Thursday, DayOfWeek.Friday });
         }
 
@@ -56,6 +65,7 @@ namespace Magenic.SharedKernel.Tests
         public void Can_Convert_Enum_String_Name_To_Enum()
         {
             DayOfWeek result = Conversion.ToEnum<DayOfWeek>("Tuesday");
+
             result.Should().Be(DayOfWeek.Tuesday);
         }
 
@@ -69,7 +79,10 @@ namespace Magenic.SharedKernel.Tests
         public void Enum_Conversion_With_Invalid_Value_Throws()
         {
             Assert.Throws<KeyNotFoundException>(() => Conversion.ToEnum<DayOfWeek>(166));
-            Assert.Throws<KeyNotFoundException>(() => Conversion.ToEnum<DayOfWeek>(DateTime.Now.Ticks.ToString()));
+            Assert.Throws<KeyNotFoundException>(
+                () => Conversion.ToEnum<DayOfWeek>(DateTime.Now.Ticks.ToString()));
         }
+
+        #endregion
     }
 }

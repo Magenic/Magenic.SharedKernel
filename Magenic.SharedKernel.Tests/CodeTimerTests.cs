@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace Magenic.SharedKernel.Tests
@@ -30,7 +32,7 @@ namespace Magenic.SharedKernel.Tests
 
         #endregion
 
-        #region Public Methods
+        #region Public Instance Methods
 
         /// <summary>
         /// A test for CodeTimer Message property.
@@ -60,8 +62,7 @@ namespace Magenic.SharedKernel.Tests
 
                     Seq.List(
                         msg,
-                        timer.StepName).Apply(
-                        m =>
+                        timer.StepName).Apply(m =>
                         {
                             AssertEx.NotNullOrEmptyOfType<string>(m);
                             m.Should().NotBeNullOrWhiteSpace();
@@ -69,6 +70,7 @@ namespace Magenic.SharedKernel.Tests
 
                     msg.Should().Contain("running");
                     msg.Should().NotContain("completed");
+
                     Assert.Equal(nameof(CodeTimerTest_Message), timer.StepName);
                 });
 
@@ -107,10 +109,10 @@ namespace Magenic.SharedKernel.Tests
                     Seq.List(
                         timer.ElapsedText,
                         timer.StepName).Apply(m =>
-                    {
-                        AssertEx.NotNullOrEmptyOfType<string>(m);
-                        m.Should().NotBeNullOrWhiteSpace();
-                    });
+                        {
+                            AssertEx.NotNullOrEmptyOfType<string>(m);
+                            m.Should().NotBeNullOrWhiteSpace();
+                        });
 
                     Assert.Equal(nameof(CodeTimerTest_Elapsed), timer.StepName);
                 });
@@ -145,10 +147,10 @@ namespace Magenic.SharedKernel.Tests
                     Seq.List(
                         timerString,
                         timer.StepName).Apply(m =>
-                    {
-                        AssertEx.NotNullOrEmptyOfType<string>(m);
-                        m.Should().NotBeNullOrWhiteSpace();
-                    });
+                        {
+                            AssertEx.NotNullOrEmptyOfType<string>(m);
+                            m.Should().NotBeNullOrWhiteSpace();
+                        });
 
                     timerString.Should().Contain("running");
                     timerString.Should().NotContain("completed");

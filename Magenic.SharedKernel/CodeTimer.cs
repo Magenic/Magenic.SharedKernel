@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+
 using Humanizer;
 
 namespace Magenic.SharedKernel
@@ -10,7 +11,7 @@ namespace Magenic.SharedKernel
     /// <remarks>This class is often used with logging.</remarks>
     public class CodeTimer : DisposableObject
     {
-        #region Private Fields
+        #region Fields
 
         private readonly Stopwatch _timer;
 
@@ -21,7 +22,7 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Creates a new code timer for the given step/code/task.
         /// </summary>
-        /// <param name="stepName">Short, descriptive name of what's being timed.</param>
+        /// <param name="stepName">Concise and descriptive name of what's being timed.</param>
         public CodeTimer(string stepName)
         {
             StepName = stepName;
@@ -39,7 +40,7 @@ namespace Magenic.SharedKernel
 
         #endregion
 
-        #region Public Properties
+        #region Properties
 
         /// <summary>
         /// Returns timespan of elapsed time so far or if complete, total time it took.
@@ -64,15 +65,6 @@ namespace Magenic.SharedKernel
         public string StepName { get; }
 
         #endregion
-
-        #region Protected Methods
-
-        protected override void DisposeManagedResources()
-        {
-            Stop();
-        }
-
-        #endregion 
 
         #region Public Methods
 
@@ -101,5 +93,14 @@ namespace Magenic.SharedKernel
         }
 
         #endregion
+
+        #region Protected Methods
+
+        protected override void DisposeManagedResources()
+        {
+            Stop();
+        }
+
+        #endregion 
     }
 }

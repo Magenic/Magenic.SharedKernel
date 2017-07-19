@@ -14,10 +14,10 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Converts string value to enum value, returning default if not defined.
         /// </summary>
-        /// <typeparam name="TEnum">type of enum to create</typeparam>
-        /// <param name="value">string value (can be name or numeric string value)</param>
-        /// <param name="defaultValue">Default value if invalid or null</param>
-        /// <returns>enum value</returns>
+        /// <typeparam name="TEnum">Type of enum to create.</typeparam>
+        /// <param name="value">String value (can be name or numeric string value).</param>
+        /// <param name="defaultValue">Default value if invalid or null.</param>
+        /// <returns>Enum value.</returns>
         public static TEnum ToEnum<TEnum>(string value, TEnum defaultValue)
         {
             return Enum.IsDefined(typeof(TEnum), value)
@@ -29,26 +29,28 @@ namespace Magenic.SharedKernel
         /// Converts string value to enum value. Throws KeyNotFoundException if invalid 
         /// value is provided.
         /// </summary>
-        /// <typeparam name="TEnum">type of enum to create</typeparam>
-        /// <param name="value">string value (can be name or numeric string value)</param>
-        /// <returns>enum value</returns>
+        /// <typeparam name="TEnum">Type of enum to create.</typeparam>
+        /// <param name="value">String value (can be name or numeric string value).</param>
+        /// <returns>Enum value.</returns>
         public static TEnum ToEnum<TEnum>(string value)
         {
             if (Enum.IsDefined(typeof(TEnum), value))
             {
                 return (TEnum)Enum.Parse(typeof(TEnum), value);
             }
-
-            throw new KeyNotFoundException(
-                $"Value {value} isn't valid for enum type {typeof(TEnum)}.");
+            else
+            {
+                throw new KeyNotFoundException(
+                    $"Value {value} is not valid for enum type {typeof(TEnum)}.");
+            }
         }
 
         /// <summary>
         /// Converts int value to enum value, throwing exception if invalid value.
         /// </summary>
-        /// <typeparam name="TEnum">type of enum to create</typeparam>
-        /// <param name="value">int value</param>
-        /// <returns>enum value</returns>
+        /// <typeparam name="TEnum">Ttype of enum to create.</typeparam>
+        /// <param name="value">String value (can be name or numeric string value).</param>
+        /// <returns>Enum value.</returns>
         public static TEnum ToEnum<TEnum>(int value)
             where TEnum: struct
         {
@@ -56,17 +58,19 @@ namespace Magenic.SharedKernel
             {
                 return (TEnum)(object)value;
             }
-
-            throw new KeyNotFoundException(
-                $"Value {value} isn't valid for enum type {typeof(TEnum)}.");
+            else
+            {
+                throw new KeyNotFoundException(
+                    $"Value {value} is not valid for enum type {typeof(TEnum)}.");
+            }
         }
 
         /// <summary>
-        /// Converts the array of string values to a list of enum values.
+        /// Converts array of string values to a list of enum values.
         /// </summary>
-        /// <typeparam name="TEnum">type of enum</typeparam>
-        /// <param name="textValues">raw string array of values (names or numeric)</param>
-        /// <returns>enum list</returns>
+        /// <typeparam name="TEnum">Type of enum.</typeparam>
+        /// <param name="textValues">Raw string array of values (names or numeric).</param>
+        /// <returns>Enum list.</returns>
         public static IList<TEnum> ToEnumList<TEnum>(string[] textValues)
         {
             return textValues
@@ -79,7 +83,7 @@ namespace Magenic.SharedKernel
         /// </summary>
         /// <typeparam name="TEnum">Type of enum to create.</typeparam>
         /// <param name="enumNames">Delimited string of enum values (names or numbers).</param>
-        /// <param name="separator">Separator to split on.  Defaults to ",".</param>
+        /// <param name="separator">Separator to split on.  Defaults to comma.</param>
         /// <returns>List of enum values.</returns>
         public static IList<TEnum> ToEnumList<TEnum>(
             string enumNames,
@@ -96,6 +100,6 @@ namespace Magenic.SharedKernel
             throw new ArgumentNullException(nameof(enumNames));
         }
 
-        #endregion Public Methods
+        #endregion
     }
 }

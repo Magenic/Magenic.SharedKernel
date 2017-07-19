@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+
 using Xunit;
 
 namespace Magenic.SharedKernel.Tests
@@ -48,6 +49,6 @@ namespace Magenic.SharedKernel.Tests
             Assert.IsType<T>(obj);
         }
 
-        #endregion Public Methods
+        #endregion
     }
 }
