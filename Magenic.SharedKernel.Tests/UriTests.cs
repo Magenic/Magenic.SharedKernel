@@ -91,16 +91,16 @@ namespace Magenic.SharedKernel.Tests
             Random random = RandomEx.Create(7973323);
             string resourcePrefix = random.NextString(8, 16);
             string baseAddress = random.NextString(8, 16);
-            string WEB_SERVICES_GROUP = random.NextString(8, 16);
+            string webServicesGroup = random.NextString(8, 16);
             string webServiceName = random.NextString(8, 16);
-            int PORT_NUMBER = random.Next(1000, 9999);
+            int portNumber = random.Next(1000, 9999);
 
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = UriEx.Create(
                     UriEx.Create(
-                        UriEx.AddPort(baseAddress, PORT_NUMBER),
-                        WEB_SERVICES_GROUP),
+                        UriEx.AddPort(baseAddress, portNumber),
+                        webServicesGroup),
                     webServiceName);
 
                 Assert.NotNull(client);

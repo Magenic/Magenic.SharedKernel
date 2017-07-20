@@ -1,8 +1,5 @@
 ﻿using System;
 
-/// <summary>
-/// Namespace for CBS NorthStar Order Entry API Shared Kernel.
-/// </summary>
 namespace Magenic.SharedKernel
 {
     /// <summary>

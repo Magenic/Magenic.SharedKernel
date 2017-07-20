@@ -96,8 +96,10 @@ namespace Magenic.SharedKernel
                         separator.ToCharArray(),
                         StringSplitOptions.RemoveEmptyEntries));
             }
-
-            throw new ArgumentNullException(nameof(enumNames));
+            else
+            {
+                throw new ArgumentNullException(nameof(enumNames));
+            }
         }
 
         #endregion
