@@ -56,10 +56,11 @@ namespace Magenic.SharedKernel.Tests
         }
 
         /// <summary>
-        /// A test for ToUpper.
+        /// A test for ToUpper, first overload.
         ///</summary>
+        ///<remarks>This tests ToUpper without argument.</remarks>
         [Fact]
-        public void Guid_ToUpper()
+        public void Guid_ToUpper_1()
         {
             Guid guid0 = Guid.Empty;
             Guid guid1 = Guid.NewGuid();
@@ -69,6 +70,34 @@ namespace Magenic.SharedKernel.Tests
 
             Assert.Equal(Guid.Empty.ToString().ToUpper(), guid0.ToUpper());
             Assert.Equal(guid1.ToString().ToUpper(), guid1.ToUpper());
+        }
+
+        /// <summary>
+        /// A test for ToUpper, second overload.
+        ///</summary>
+        ///<remarks>This tests ToUpper with format argument.</remarks>
+        [Fact]
+        public void Guid_ToUpper_2()
+        {
+            Guid guid0 = Guid.Empty;
+            Guid guid1 = Guid.NewGuid();
+
+            Assert.Equal(Guid.Empty, guid0);
+            Assert.NotEqual(Guid.Empty, guid1);
+
+            Seq.List("N", "D", "B", "P", "X", string.Empty, null, "").Apply(format =>
+            {
+                Assert.Equal(Guid.Empty.ToString(format).ToUpper(), guid0.ToUpper(format));
+                Assert.Equal(guid1.ToString(format).ToUpper(), guid1.ToUpper(format));
+            });
+
+            Seq.List("Invalid", "0", "1", "A", "C", "m", "W", "y", "Z").Apply(format =>
+            {
+                Assert.Throws<FormatException>(() => guid0.ToString(format));
+                Assert.Throws<FormatException>(() => guid0.ToUpper(format));
+                Assert.Throws<FormatException>(() => guid1.ToString(format));
+                Assert.Throws<FormatException>(() => guid1.ToUpper(format));
+            });
         }
 
         #endregion

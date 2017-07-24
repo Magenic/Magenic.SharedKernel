@@ -24,6 +24,18 @@ namespace Magenic.SharedKernel
         public static string ToUpper(this Guid guid) => guid.ToString().ToUpper();
 
         /// <summary>
+        /// Performs ToString and ToUpper on guid.
+        /// </summary>
+        /// <param name="guid">A Guid object.</param>
+        /// <param name="format">
+        /// A single format specifier that indicates how to format the value of this Guid.
+        /// The format parameter can be "N", "D", "B", "P", or "X".
+        /// If format is null or an empty string (""), "D" is used.</param>
+        /// <returns>Uppercase string representations of guid.</returns>
+        public static string ToUpper(this Guid guid, string format)
+            => guid.ToString(format).ToUpper();
+
+        /// <summary>
         /// Determines if nullable guid is null or empty.
         /// </summary>
         /// <param name="nullableGuid">A Nullable Guid object.</param>
