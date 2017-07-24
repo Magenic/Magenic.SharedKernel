@@ -710,7 +710,7 @@ namespace Magenic.SharedKernel.Tests
         {
             Assert.True(ColEx.IsEmpty(new Dictionary<int, string>()));
             Assert.True(ColEx.IsEmpty(new List<char>()));
-            Assert.True(ColEx.IsEmpty(ArrayEx.Empty<short>()));
+            Assert.True(ColEx.IsEmpty(Array.Empty<short>()));
         }
 
         /// <summary>
@@ -762,7 +762,7 @@ namespace Magenic.SharedKernel.Tests
             IDictionary<int, string> nullMap = null;
             IList<char> nullVector = null;
 
-            Assert.True(ColEx.IsNullOrEmpty(ArrayEx.Empty<short>()));
+            Assert.True(ColEx.IsNullOrEmpty(Array.Empty<short>()));
             Assert.True(ColEx.IsNullOrEmpty(nullCol));
             Assert.True(ColEx.IsNullOrEmpty(nullMap));
             Assert.True(ColEx.IsNullOrEmpty(new Dictionary<int, string>()));

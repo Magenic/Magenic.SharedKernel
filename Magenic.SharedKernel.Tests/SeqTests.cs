@@ -228,7 +228,7 @@ namespace Magenic.SharedKernel.Tests
             Enumerable.Repeat(76, 4).Should().Equal(Seq.List(76, 76, 76, 76));
             (new int[] {56, 123, 987, 2}).Should().Equal(
                 Seq.List(56, 123, 987, 2));
-            ArrayEx.Empty<int>().Should().Equal(Seq.List<int>());
+            Array.Empty<int>().Should().Equal(Seq.List<int>());
             ColEx.CreateVector<long>().Should().Equal(Seq.List<long>());
             Enumerable.Empty<char>().Should().Equal(Seq.List<char>());
         }

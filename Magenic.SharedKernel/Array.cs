@@ -10,13 +10,6 @@ namespace Magenic.SharedKernel
         #region Public Static Methods
 
         /// <summary>
-        /// Returns an empty array of type TResult.
-        /// </summary>
-        /// <typeparam name="TResult">Generic data type of array.</typeparam>
-        /// <returns>Returns a new empty instance of an array.</returns>
-        public static TResult[] Empty<TResult>() => new TResult[0];
-
-        /// <summary>
         /// Returns true if array is empty.
         /// </summary>
         /// <typeparam name="TSource">Generic data type of array.</typeparam>

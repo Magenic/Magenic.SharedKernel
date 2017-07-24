@@ -16,30 +16,6 @@ namespace Magenic.SharedKernel.Tests
         #region Public Methods
 
         /// <summary>
-        /// A test for Empty.
-        ///</summary>
-        [Fact]
-        public void Array_Empty()
-        {
-            int[] arr = ArrayEx.Empty<int>();
-
-            Assert.NotNull(arr);
-            Assert.Equal(0, arr.Length);
-            Assert.Equal(0, arr.Count());
-            Assert.IsType<int[]>(arr);
-
-            arr.Should().NotBeNull();
-            arr.Should().BeEmpty();
-            arr.Should().BeOfType(typeof(int[]));
-            arr.Length.ShouldBeEquivalentTo(0);
-            arr.Count().ShouldBeEquivalentTo(0);
-
-            arr.ShouldBeEquivalentTo(Enumerable.Empty<int>());
-            arr.Should().Equal(Enumerable.Empty<int>());
-            arr.Should().NotBeSameAs(Seq.List(1, 2));
-        }
-
-        /// <summary>
         /// A test for IsEmpty.
         ///</summary>
         [Fact]
@@ -52,10 +28,10 @@ namespace Magenic.SharedKernel.Tests
             Assert.Equal(0, arr.Count());
             Assert.IsType<char[]>(arr);
 
-            Assert.True(ArrayEx.Empty<int>().IsEmpty());
-            ArrayEx.Empty<int>().Should().BeEmpty();
+            Assert.True(Array.Empty<int>().IsEmpty());
+            Array.Empty<int>().Should().BeEmpty();
             Assert.True(arr.IsEmpty());
-            ArrayEx.Empty<int>().Should().BeEmpty();
+            Array.Empty<int>().Should().BeEmpty();
             arr.Should().BeEmpty();
         }
 
@@ -69,7 +45,7 @@ namespace Magenic.SharedKernel.Tests
 
             Assert.Null(arr);
             Assert.True(ArrayEx.IsNullOrEmpty(arr));
-            Assert.True(ArrayEx.IsNullOrEmpty(ArrayEx.Empty<int>()));
+            Assert.True(ArrayEx.IsNullOrEmpty(Array.Empty<int>()));
         }
 
         /// <summary>
