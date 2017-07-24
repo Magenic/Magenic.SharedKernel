@@ -103,30 +103,30 @@ namespace Magenic.SharedKernel
         }
 
         /// <summary>
-        /// Creates an empty vector.
+        /// Creates an empty list.
         /// </summary>
         /// <typeparam name="TSource">Type of the strongly-typed collection.</typeparam>
         /// <returns>A new instance of list.</returns>
-        public static IList<TSource> CreateVector<TSource>() => new List<TSource>();
+        public static IList<TSource> CreateList<TSource>() => new List<TSource>();
 
         /// <summary>
-        /// Creates a vector with capacity.
+        /// Creates a list with capacity.
         /// </summary>
         /// <typeparam name="TSource">Type of the strongly-typed collection.</typeparam>
         /// <param name="capacity">
         ///	Capacity is the number of elements that the list can store before resizing is required.
         /// </param>
         /// <returns>A new instance of list.</returns>
-        public static IList<TSource> CreateVector<TSource>(int capacity)
+        public static IList<TSource> CreateList<TSource>(int capacity)
             => new List<TSource>(capacity);
 
         /// <summary>
-        /// Creates a vector from sequence.
+        /// Creates a list from sequence.
         /// </summary>
         /// <typeparam name="TSource">Type of the strongly-typed collection.</typeparam>
-        /// <param name="seq">The source collection of the vector.</param>
+        /// <param name="seq">The source collection of the list.</param>
         /// <returns>A new instance of list based on the values in an IEnumerable collection.</returns>
-        public static IList<TSource> CreateVector<TSource>(IEnumerable<TSource> seq)
+        public static IList<TSource> CreateList<TSource>(IEnumerable<TSource> seq)
             => new List<TSource>(seq);
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Magenic.SharedKernel
              TValue value) => new KeyValuePair<TKey, TValue>(key, value);
 
         /// <summary>
-        /// Returns a vector with count elements each resulting from calling fn.
+        /// Returns a list with count elements each resulting from calling fn.
         /// </summary>
         /// <typeparam name="TResult">Generic data type of the expected result.</typeparam>
         /// <param name="fn">Predefined delegate type for a method that returns some value of the type TResult.</param>
@@ -152,15 +152,15 @@ namespace Magenic.SharedKernel
              Func<TResult> fn,
              int count)
         {
-            IList<TResult> vector = CreateVector<TResult>(count);
+            IList<TResult> list = CreateList<TResult>(count);
 
-            Util.Repeat(() => vector.Add(fn()), count);
+            Util.Repeat(() => list.Add(fn()), count);
 
-            return vector;
+            return list;
         }
 
         /// <summary>
-        /// Returns a vector with count elements each resulting from calling fn.
+        /// Returns a list with count elements each resulting from calling fn.
         /// </summary>
         /// <typeparam name="TResult">Generic data type of the expected result.</typeparam>
         /// <param name="fn">Predefined delegate type for a method that returns some value of the type TResult while accepting an int as a parameter.</param>
@@ -170,11 +170,11 @@ namespace Magenic.SharedKernel
              Func<int, TResult> fn,
              int count)
         {
-            IList<TResult> vector = CreateVector<TResult>(count);
+            IList<TResult> list = CreateList<TResult>(count);
 
-            Util.Repeat(i => vector.Add(fn(i)), count);
+            Util.Repeat(i => list.Add(fn(i)), count);
 
-            return vector;
+            return list;
         }
 
         /// <summary>

@@ -112,7 +112,7 @@ namespace Magenic.SharedKernel.Tests
             Assert.NotEmpty(set);
             set.Should().HaveCount(7);
             set.Should().Equal(seq);
-            set.Should().Equal(ColEx.CreateVector(seq));
+            set.Should().Equal(ColEx.CreateList(seq));
         }
         
         /// <summary>
@@ -251,10 +251,10 @@ namespace Magenic.SharedKernel.Tests
         }
 
         /// <summary>
-        /// A test for CreateVector.
+        /// A test for CreateList.
         ///</summary>
         [Fact]
-        public void Col_CreateVector_1()
+        public void Col_CreateList_1()
         {
             IList<string> seqList = new List<string>()
             {
@@ -265,21 +265,21 @@ namespace Magenic.SharedKernel.Tests
             Assert.NotNull(seqList);
             Assert.NotEmpty(seqList);
 
-            IList<string> col_HasCapacity = ColEx.CreateVector<string>(capacity: 2);
+            IList<string> col_HasCapacity = ColEx.CreateList<string>(capacity: 2);
 
             Assert.NotNull(col_HasCapacity);
             Assert.IsType<List<string>>(col_HasCapacity);
             Assert.Empty(col_HasCapacity);
             Assert.Equal(new List<string>(), col_HasCapacity);
 
-            IList<string> col_CreateNew = ColEx.CreateVector<string>();
+            IList<string> col_CreateNew = ColEx.CreateList<string>();
 
             Assert.NotNull(col_CreateNew);
             Assert.IsType<List<string>>(col_CreateNew);
             Assert.Empty(col_CreateNew);
             Assert.Equal(new List<string>(), col_CreateNew);
 
-            IList<string> col_HasSeq = ColEx.CreateVector(seq: seqList);
+            IList<string> col_HasSeq = ColEx.CreateList(seq: seqList);
 
             Assert.NotNull(col_HasSeq);
             Assert.IsType<List<string>>(col_HasSeq);
@@ -289,27 +289,27 @@ namespace Magenic.SharedKernel.Tests
         }
 
         /// <summary>
-        /// A test for CreateVector.
+        /// A test for CreateList.
         ///</summary>
         [Fact]
-        public void Col_CreateVector_2()
+        public void Col_CreateList_2()
         {
             IEnumerable<int> seq = Enumerable.Range(0, 12);
-            IList<int> vector = ColEx.CreateVector<int>();
+            IList<int> list = ColEx.CreateList<int>();
 
-            Seq.List<object>(seq, vector).Apply(o => Assert.NotNull(o));
+            Seq.List<object>(seq, list).Apply(o => Assert.NotNull(o));
 
             Assert.NotEmpty(seq);
-            Assert.Empty(vector);
+            Assert.Empty(list);
 
-            Assert.IsType<List<int>>(vector);
+            Assert.IsType<List<int>>(list);
 
-            Util.Repeat(i => vector.Add(i), 12);
+            Util.Repeat(i => list.Add(i), 12);
 
-            Assert.NotEmpty(vector);
-            vector.Should().HaveCount(12);
-            vector.Should().Equal(seq);
-            vector.Should().Equal(ColEx.CreateVector(seq));
+            Assert.NotEmpty(list);
+            list.Should().HaveCount(12);
+            list.Should().Equal(seq);
+            list.Should().Equal(ColEx.CreateList(seq));
         }
 
         /// <summary>
@@ -426,19 +426,19 @@ namespace Magenic.SharedKernel.Tests
             Assert.NotNull(random0);
             Assert.IsType<Random>(random0);
 
-            IList<string> vector0 = ColEx.Repeat(
+            IList<string> list0 = ColEx.Repeat(
                 () => random0.NextString(random0.Next(4, 32)), random0.Next(128, 256));
 
-            Assert.NotNull(vector0);
+            Assert.NotNull(list0);
 
             Random random1 = RandomEx.Create(6533587);
 
             Assert.NotNull(random1);
             Assert.IsType<Random>(random1);
 
-            IList<string> vector1 = ColEx.CreateVector<string>();
+            IList<string> list1 = ColEx.CreateList<string>();
 
-            Assert.NotNull(vector1);
+            Assert.NotNull(list1);
 
             int count = random1.Next(128, 256);
 
@@ -447,22 +447,22 @@ namespace Magenic.SharedKernel.Tests
 
             for (int i = 0; i < count; i++)
             {
-                vector1.Add(random1.NextString(random1.Next(4, 32)));
+                list1.Add(random1.NextString(random1.Next(4, 32)));
             }
 
-            vector0.Should().Equal(vector1);
+            list0.Should().Equal(list1);
 
-            vector1.Clear();
+            list1.Clear();
 
             for (int i = 0; i < count; i++)
             {
-                vector1.Add(random1.NextString(random1.Next(i, i + 4)));
+                list1.Add(random1.NextString(random1.Next(i, i + 4)));
             }
 
-            vector0 = ColEx.Repeat(
+            list0 = ColEx.Repeat(
                 i => random0.NextString(random0.Next(i, i + 4)), count);
 
-            vector0.Should().Equal(vector1);
+            list0.Should().Equal(list1);
         }
 
         /// <summary>
@@ -734,7 +734,7 @@ namespace Magenic.SharedKernel.Tests
             Assert.Equal(1, colList.Count());
             Assert.Equal(false, col_IsNotNullOrEmpty);
 
-            ICollection<string> colEmpty = ColEx.CreateVector<string>();
+            ICollection<string> colEmpty = ColEx.CreateList<string>();
 
             bool col_IsEmpty = ColEx.IsNullOrEmpty(colEmpty);
 
@@ -760,13 +760,13 @@ namespace Magenic.SharedKernel.Tests
         {
             ICollection<short> nullCol = null;
             IDictionary<int, string> nullMap = null;
-            IList<char> nullVector = null;
+            IList<char> nullList = null;
 
             Assert.True(ColEx.IsNullOrEmpty(Array.Empty<short>()));
             Assert.True(ColEx.IsNullOrEmpty(nullCol));
             Assert.True(ColEx.IsNullOrEmpty(nullMap));
             Assert.True(ColEx.IsNullOrEmpty(new Dictionary<int, string>()));
-            Assert.True(ColEx.IsNullOrEmpty(nullVector));
+            Assert.True(ColEx.IsNullOrEmpty(nullList));
             Assert.True(ColEx.IsNullOrEmpty(new List<char>()));
         }
 

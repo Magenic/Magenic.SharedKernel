@@ -75,69 +75,69 @@ namespace Magenic.SharedKernel.Tests
             Assert.True(count >= 16);
             Assert.True(count < 32);
 
-            IList<int> lengthsVector = ColEx
+            IList<int> lengthsList = ColEx
                 .Repeat(() => random.Next(128, 256), count);
 
-            Assert.NotNull(lengthsVector);
-            Assert.NotEmpty(lengthsVector);
-            Assert.IsType<List<int>>(lengthsVector);
+            Assert.NotNull(lengthsList);
+            Assert.NotEmpty(lengthsList);
+            Assert.IsType<List<int>>(lengthsList);
 
-            IEnumerable<string> stringsSeq = lengthsVector
+            IEnumerable<string> stringsSeq = lengthsList
                 .Map(l => random.NextString(l));
 
             Assert.NotNull(stringsSeq);
             Assert.NotEmpty(stringsSeq);
 
-            IList<string> vector0 = ColEx
+            IList<string> list0 = ColEx
                 .Repeat(() => random.NextString(128, 256), count);
 
-            Assert.NotNull(vector0);
-            Assert.NotEmpty(vector0);
-            Assert.IsType<List<string>>(vector0);
+            Assert.NotNull(list0);
+            Assert.NotEmpty(list0);
+            Assert.IsType<List<string>>(list0);
 
-            IList<string> vector1 = ColEx
+            IList<string> list1 = ColEx
                 .Repeat(() => random.NextString(128, 256), count);
 
-            Assert.NotNull(vector1);
-            Assert.NotEmpty(vector1);
-            Assert.IsType<List<string>>(vector1);
+            Assert.NotNull(list1);
+            Assert.NotEmpty(list1);
+            Assert.IsType<List<string>>(list1);
 
-            IList<string> vector2 = ColEx
+            IList<string> list2 = ColEx
                 .Repeat(() => random.NextString(128, 256), count);
 
-            Assert.NotNull(vector2);
-            Assert.NotEmpty(vector2);
-            Assert.IsType<List<string>>(vector2);
+            Assert.NotNull(list2);
+            Assert.NotEmpty(list2);
+            Assert.IsType<List<string>>(list2);
 
-            IList<string> vector3 = ColEx
+            IList<string> list3 = ColEx
                 .Repeat(() => random.NextString(128, 256), count);
 
-            Assert.NotNull(vector3);
-            Assert.NotEmpty(vector3);
-            Assert.IsType<List<string>>(vector3);
+            Assert.NotNull(list3);
+            Assert.NotEmpty(list3);
+            Assert.IsType<List<string>>(list3);
 
             IEnumerable<string> map01 = Seq.Map(
-                vector0,
-                vector1,
+                list0,
+                list1,
                 (s0, s1) => $"{s0}{s1}");
 
             Assert.NotNull(map01);
             Assert.NotEmpty(map01);
 
             IEnumerable<string> map012 = Seq.Map(
-                vector0,
-                vector1,
-                vector2,
+                list0,
+                list1,
+                list2,
                 (s0, s1, s2) => $"{s0}{s1}{s2}");
 
             Assert.NotNull(map012);
             Assert.NotEmpty(map012);
 
             IEnumerable<string> map0123 = Seq.Map(
-                vector0,
-                vector1,
-                vector2,
-                vector3,
+                list0,
+                list1,
+                list2,
+                list3,
                 (s0, s1, s2, s3) => $"{s0}{s1}{s2}{s3}");
 
             Assert.NotNull(map0123);
@@ -148,15 +148,15 @@ namespace Magenic.SharedKernel.Tests
             Assert.NotNull(stringsLen);
             Assert.NotEmpty(stringsLen);
 
-            lengthsVector.ShouldBeEquivalentTo(stringsLen);
+            lengthsList.ShouldBeEquivalentTo(stringsLen);
             stringsSeq.Select(s => s.Length).ShouldBeEquivalentTo(stringsLen);
 
             map01.Should().Equal(
-                vector0.Zip(vector1, (s0, s1) => $"{s0}{s1}"));
+                list0.Zip(list1, (s0, s1) => $"{s0}{s1}"));
             map012.Should().Equal(
-                map01.Zip(vector2, (s01, s2) => $"{s01}{s2}"));
+                map01.Zip(list2, (s01, s2) => $"{s01}{s2}"));
             map0123.Should().Equal(
-                map012.Zip(vector3, (s012, s3) => $"{s012}{s3}"));
+                map012.Zip(list3, (s012, s3) => $"{s012}{s3}"));
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace Magenic.SharedKernel.Tests
             (new int[] {56, 123, 987, 2}).Should().Equal(
                 Seq.List(56, 123, 987, 2));
             Array.Empty<int>().Should().Equal(Seq.List<int>());
-            ColEx.CreateVector<long>().Should().Equal(Seq.List<long>());
+            ColEx.CreateList<long>().Should().Equal(Seq.List<long>());
             Enumerable.Empty<char>().Should().Equal(Seq.List<char>());
         }
 
@@ -488,25 +488,25 @@ namespace Magenic.SharedKernel.Tests
         {
             string format = "{0}{1}{2}{3}.";
             Random random = RandomEx.Create(548818888);
-            IList<string> vector = ColEx.Repeat(() => random.NextString(4, 16), 5);
+            IList<string> list = ColEx.Repeat(() => random.NextString(4, 16), 5);
             string s0 = string.Format(
-                format, vector[0], vector[1], vector[2], vector[3]);
+                format, list[0], list[1], list[2], list[3]);
             string s1 = string.Format(
-                format, vector[1], vector[3], vector[2], vector[0]);
+                format, list[1], list[3], list[2], list[0]);
             IEnumerable<string> seq = Enumerable.Empty<string>().AppendFormat(
                 format,
-                vector[0],
-                vector[1],
-                vector[2],
-                vector[3]);
+                list[0],
+                list[1],
+                list[2],
+                list[3]);
 
             Assert.Equal(s0, seq.Single());
 
-            seq = seq.AppendFormat(format, vector[1], vector[3], vector[2], vector[0]);
+            seq = seq.AppendFormat(format, list[1], list[3], list[2], list[0]);
 
             Seq.List(s0, s1).Should().Equal(seq);
-            Seq.List(s0, s1, vector[4]).Should().Equal(
-                seq.AppendFormat("{0}", vector[4]));
+            Seq.List(s0, s1, list[4]).Should().Equal(
+                seq.AppendFormat("{0}", list[4]));
         }
 
         /// <summary>
@@ -517,31 +517,31 @@ namespace Magenic.SharedKernel.Tests
         {
             IEnumerable<string> seq = Enumerable.Empty<string>();
             Random random = RandomEx.Create(827400392);
-            IList<string> vector0 = ColEx.Repeat(() => random.NextString(4, 8), 3);
-            IList<string> vector1 = ColEx.Repeat(() => random.NextString(9, 16), 4);
-            List<string> combo = ColEx.CreateVector(vector0) as List<string>;
+            IList<string> list0 = ColEx.Repeat(() => random.NextString(4, 8), 3);
+            IList<string> list1 = ColEx.Repeat(() => random.NextString(9, 16), 4);
+            List<string> combo = ColEx.CreateList(list0) as List<string>;
 
-            combo.AddRange(vector1);
+            combo.AddRange(list1);
 
-            Seq.List(vector0[0]).Should().Equal(seq.Append(vector0[0]));
-            Seq.List(vector0[0], vector0[1]).Should().Equal(
-                seq.Append(vector0[0]).Append(vector0[1]));
-            vector0.Should().Equal(
-                seq.Append(vector0[0]).Append(vector0[1]).Append(vector0[2]));
-            vector0.Should().Equal(seq.Append(vector0));
-            combo.Should().Equal(seq.Append(vector0).Append(vector1));
+            Seq.List(list0[0]).Should().Equal(seq.Append(list0[0]));
+            Seq.List(list0[0], list0[1]).Should().Equal(
+                seq.Append(list0[0]).Append(list0[1]));
+            list0.Should().Equal(
+                seq.Append(list0[0]).Append(list0[1]).Append(list0[2]));
+            list0.Should().Equal(seq.Append(list0));
+            combo.Should().Equal(seq.Append(list0).Append(list1));
 
-            combo.AddRange(vector0);
-            combo.AddRange(vector1);
-            combo.Add(vector0[2]);
+            combo.AddRange(list0);
+            combo.AddRange(list1);
+            combo.Add(list0[2]);
 
             combo.Should().Equal(seq
-                .Append(vector0, vector1, vector0)
-                .Append(vector1)
-                .Append(vector0[2]));
+                .Append(list0, list1, list0)
+                .Append(list1)
+                .Append(list0[2]));
             combo.Should().Equal(Seq
-                .Append(vector0, vector1, seq, vector0)
-                .Append(vector1).Append(vector0[2]));
+                .Append(list0, list1, seq, list0)
+                .Append(list1).Append(list0[2]));
         }
 
         /// <summary>
@@ -579,25 +579,25 @@ namespace Magenic.SharedKernel.Tests
                 .Repeat(() => random0.NextString(8, 16), random0.Next(128, 256));
             Random random1 = RandomEx.Create(380572830);
             int count = random1.Next(128, 256);
-            IList<string> vector = ColEx.CreateVector<string>();
+            IList<string> list = ColEx.CreateList<string>();
 
             for (int i = 0; i < count; i++)
             {
-                vector.Add(random1.NextString(8, 16));
+                list.Add(random1.NextString(8, 16));
             }
 
-            vector.Should().Equal(seq);
+            list.Should().Equal(seq);
 
-            vector.Clear();
+            list.Clear();
 
             for (int i = 0; i < count; i++)
             {
-                vector.Add(random1.NextString(i, i + 8));
+                list.Add(random1.NextString(i, i + 8));
             }
 
             seq = Seq.Repeat(i => random0.NextString(i, i + 8), count);
 
-            vector.Should().Equal(seq);
+            list.Should().Equal(seq);
         }
 
         /// <summary>
