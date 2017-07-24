@@ -20,8 +20,8 @@ namespace Magenic.SharedKernel
 
         public MultiEnumerator(IEnumerator<TFirst> e1, IEnumerator<TSecond> e2)
         {
-            _e1 = e1;
-            _e2 = e2;
+            _e1 = e1 ?? throw new ArgumentNullException(nameof(e1));
+            _e2 = e2 ?? throw new ArgumentNullException(nameof(e2));
         }
 
         #region Creation
@@ -115,9 +115,9 @@ namespace Magenic.SharedKernel
             IEnumerator<TSecond> e2,
             IEnumerator<TThird> e3)
         {
-            _e1 = e1;
-            _e2 = e2;
-            _e3 = e3;
+            _e1 = e1 ?? throw new ArgumentNullException(nameof(e1));
+            _e2 = e2 ?? throw new ArgumentNullException(nameof(e2));
+            _e3 = e3 ?? throw new ArgumentNullException(nameof(e3));
         }
 
         public MultiEnumerator(
@@ -215,10 +215,10 @@ namespace Magenic.SharedKernel
             IEnumerator<TThird> e3,
             IEnumerator<TFourth> e4)
         {
-            _e1 = e1;
-            _e2 = e2;
-            _e3 = e3;
-            _e4 = e4;
+            _e1 = e1 ?? throw new ArgumentNullException(nameof(e1));
+            _e2 = e2 ?? throw new ArgumentNullException(nameof(e2));
+            _e3 = e3 ?? throw new ArgumentNullException(nameof(e3));
+            _e4 = e4 ?? throw new ArgumentNullException(nameof(e4));
         }
 
         public MultiEnumerator(
