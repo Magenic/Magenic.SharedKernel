@@ -111,12 +111,12 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Applies fn onto corresponding elements of first and second sequences.
         /// </summary>
-        /// <remarks>Advancement is halted once end of collection is reached on one of the sequences.</remarks>
         /// <typeparam name="TFirst">Generic IEnumerable object of type TFirst.</typeparam>
         /// <typeparam name="TSecond">Generic IEnumerable object of type TSecond.</typeparam>
         /// <param name="first">An IEnumerable instance of TFirst.</param>
         /// <param name="second">An IEnumerable instance of TSecond.</param>
         /// <param name="fn">A method that accepts TFirst and TSecond as parameters. (Does not return a value).</param>
+        /// <remarks>Advancement is halted once end of collection is reached on any of the sequences.</remarks>
         public static void Apply<TFirst, TSecond>(
              IEnumerable<TFirst> first,
              IEnumerable<TSecond> second,
@@ -196,11 +196,11 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Projects each element of a sequence to an IEnumerable of type TResult and flattens the resulting sequences into one sequence.
         /// </summary>
-        /// <remarks>Equivalent to C# Enumerable Class SelectMany extension method.</remarks>
         /// <typeparam name="TSource">Generic IEnumerable object that is being extended.</typeparam>
         /// <typeparam name="TResult">Generic IEnumerable object that is expected as the return value.</typeparam>
         /// <param name="source">An IEnumerable instance of TSource.</param>
         /// <param name="fn">A method that accepts TSource as parameter and return an IEnumerable object of type TResult.</param>
+        /// <remarks>Equivalent to C# Enumerable Class SelectMany extension method.</remarks>
         /// <returns>Lazy sequence.</returns>
         public static IEnumerable<TResult> FlatMap<TSource, TResult>(
              this IEnumerable<TSource> source,
@@ -469,12 +469,11 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Projects each element from source sequence into result sequence by applying fn.
         /// </summary>
-        /// <remarks>Equivalent to C# Enumerable Class Select extension method.</remarks>
-        /// <returns>Lazy sequence.</returns>
         /// <typeparam name="TSource">Generic type of the target object of this extension.</typeparam>
         /// <typeparam name="TResult">>Generic type of the return value.</typeparam>
         /// <param name="source">An IEnumerable instance of type TSource.</param>
         /// <param name="fn">A method that accepts TSource as parameter and return an IEnumerable object of type TResult.</param>
+        /// <remarks>Equivalent to C# Enumerable Class Select extension method.</remarks>
         /// <returns>IEnumerable of type TResult.</returns>
         public static IEnumerable<TResult> Map<TSource, TResult>(
              this IEnumerable<TSource> source,
@@ -494,15 +493,13 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Applies fn to the corresponding elements from first and second sequences, producing results sequence.
         /// </summary>
-        /// <remarks>Equivalent to C# Enumerable Class Zip extension method.</remarks>
-        /// <returns>Lazy sequence.</returns>
         /// <typeparam name="TFirst">Generic IEnumerable object of type TFirst.</typeparam>
         /// <typeparam name="TSecond">Generic IEnumerable object of type TSecond.</typeparam>
         /// <typeparam name="TResult">Generic IEnumerable object of type TResult.</typeparam>
         /// <param name="first">An IEnumerable instance of TFirst.</param>
         /// <param name="second">An IEnumerable instance of TSecond.</param>
-        /// <param name="fn"></param>
         /// <param name="fn">A method that accepts TFirst and TSecond as parameters and return an IEnumerable object of type TResult.</param>
+        /// <remarks>Equivalent to C# Enumerable Class Zip extension method.</remarks>
         /// <returns>IEnumerable of type TResult.</returns>
         public static IEnumerable<TResult> Map<TFirst, TSecond, TResult>(
              IEnumerable<TFirst> first,
@@ -524,7 +521,6 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Applies fn to the corresponding elements from first, second and third sequences, producing results sequence.
         /// </summary>
-        /// <returns>Lazy sequence.</returns>
         /// <typeparam name="TFirst">Generic IEnumerable object of type TFirst.</typeparam>
         /// <typeparam name="TSecond">Generic IEnumerable object of type TSecond.</typeparam>
         /// <typeparam name="TThird">Generic IEnumerable object of type TThird.</typeparam>
@@ -555,7 +551,6 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Applies fn to the corresponding elements from first, second, third and fourth sequences, producing results sequence.
         /// </summary>
-        /// <returns>Lazy sequence.</returns>
         /// <typeparam name="TFirst">Generic IEnumerable object of type TFirst.</typeparam>
         /// <typeparam name="TSecond">Generic IEnumerable object of type TSecond.</typeparam>
         /// <typeparam name="TThird">Generic IEnumerable object of type TThird.</typeparam>
@@ -706,7 +701,7 @@ namespace Magenic.SharedKernel
         /// <typeparam name="TSource">Source generic type.</typeparam>
         /// <param name="first">First sequence.</param>
         /// <param name="second">Second sequence.</param>
-        /// <returns>Merged sequence</returns>
+        /// <returns>Merged sequence.</returns>
         public static IEnumerable<TSource> PairwiseMerge<TSource>(
             IEnumerable<TSource> first,
             IEnumerable<TSource> second)

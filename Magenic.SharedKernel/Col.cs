@@ -306,6 +306,7 @@ namespace Magenic.SharedKernel
         /// <typeparam name="TKey">Generic data type of key.</typeparam>
         /// <typeparam name="TValue">Generic data type of value.</typeparam>
         /// <param name="map">Map.</param>
+        /// <remarks>https://github.com/sestoft/C5</remarks>
         /// <returns>Contents of map formatted as C5 ToString formatting of map.</returns>
         public static string ToC5String<TKey, TValue>(
              this IDictionary<TKey, TValue> map)

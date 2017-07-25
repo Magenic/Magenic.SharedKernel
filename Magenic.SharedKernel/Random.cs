@@ -25,8 +25,9 @@ namespace Magenic.SharedKernel
     }
 
     /// <summary>
-    /// Provides a set of static methods on Random.
+    /// Provides a set of extension methods on Random.
     /// </summary>
+    /// <remarks>Random is a predictable sequence generator.</remarks>
     public static class RandomEx
     {
         #region Fields
@@ -51,7 +52,7 @@ namespace Magenic.SharedKernel
         #region Public Methods
 
         /// <summary>
-        /// Creates an instance of a Random object initialized by passed in seed value or New Guid Hash code.
+        /// Creates an instance of a Random object initialized by passed in seed or hash code of a newly generated guid.
         /// </summary>
         /// <param name="seed">Seed value.</param>
         /// <returns>
@@ -63,6 +64,11 @@ namespace Magenic.SharedKernel
         /// <summary>
         ///  Creates an instance of a Random object.
         /// </summary>
+        /// <remarks>
+        /// The default Random constructor uses a time dependent seed thus Random objects
+        /// generated in succession using this constructor will have identical seeds thus
+        /// generating the same sequences.
+        /// </remarks>
         /// <returns>An object of type Random.</returns>
         public static Random CreateWithTimeDependentSeed() => new Random();
 
@@ -77,37 +83,50 @@ namespace Magenic.SharedKernel
         /// Extension method for Random object that returns a random bytes.
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
-        /// <param name="length">Desired length of the bytes randomly created.</param>
-        /// <returns></returns>
+        /// <param name="length">Desired length of the randomly created byte array.</param>
+        /// <returns>Byte array.</returns>
         public static byte[] NextBytes(this Random random, int length)
         {
-            byte[] buffer = new byte[length];
+            if (length > 0)
+            {
+                byte[] buffer = new byte[length];
 
-            random.NextBytes(buffer);
+                random.NextBytes(buffer);
 
-            return buffer;
+                return buffer;
+            }
+            else if (length == 0)
+            {
+                return Array.Empty<byte>();
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(length),
+                    "Must be greater than or equal to 0.");
+            }
         }
 
         /// <summary>
         /// Static representation of a byte as if next byte in a byte array is being read.
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
-        /// <returns>Random bytes.</returns>
+        /// <returns>Random byte.</returns>
         public static byte NextByte(this Random random) => random.NextBytes(1)[0];
 
         /// <summary>
-        /// Randomly return a value with 0 to the largest possible value of an Int16.
+        /// Generates a random short.
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
-        /// <returns>Random short.</returns>
+        /// <returns>Short.</returns>
         public static short NextShort(this Random random)
             => Convert.ToInt16(random.Next(0, short.MaxValue + 1));
 
         /// <summary>
-        /// Randomly generate a (long) value.
+        /// Generates a random long.
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
-        /// <returns>long.</returns>
+        /// <returns>Long.</returns>
         public static long NextLong(this Random random)
             => BitConverter.ToInt64(
                 random
@@ -119,10 +138,10 @@ namespace Magenic.SharedKernel
                 0);
 
         /// <summary>
-        /// Randomly generates a decimal value.
+        /// Generates a random decimal.
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
-        /// <returns>Decimal value.</returns>
+        /// <returns>Decimal.</returns>
         public static decimal NextDecimal(this Random random)
             => new decimal(
                     random.Next(),
@@ -132,33 +151,46 @@ namespace Magenic.SharedKernel
                     Convert.ToByte(random.Next(0, 29)));
 
         /// <summary>
-        /// Randomly generates a string value.
+        /// Generates a random string with specified length and composition.
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
-        /// <param name="length">Number of copies of string representation.</param>
-        /// <param name="stringComposition">Enumeration of string composition.</param>
-        /// <returns>string.</returns>
+        /// <param name="length">Desired length of generated string..</param>
+        /// <param name="stringComposition">Enumerated type specifying string composition.</param>
+        /// <returns>String.</returns>
         public static string NextString(
              this Random random,
              int length,
              StringComposition stringComposition = StringComposition.AlphaNumeric)
         {
-            char[] source = _GenerateSourceMemoizerFn(stringComposition);
-            StringBuilder sb = StringEx.CreateSB();
+            if (length > 0)
+            {
+                char[] source = _GenerateSourceMemoizerFn(stringComposition);
+                StringBuilder sb = StringEx.CreateSB();
 
-            Util.Repeat(() => sb.Append(source.RandomRef(random)), length);
+                Util.Repeat(() => sb.Append(source.RandomRef(random)), length);
 
-            return sb.ToString();
+                return sb.ToString();
+            }
+            else if (length == 0)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(length),
+                    "Must be greater than or equal to 0.");
+            }
         }
 
         /// <summary>
-        /// Randomly generates a string value.
+        /// Generates a random string with specified length range and composition.
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
-        /// <param name="minLength">Minimum length of string randomly generated.</param>
-        /// <param name="maxLength">Maximum length of string randomly generated.</param>
+        /// <param name="minLength">Minimum length of randomly string generated.</param>
+        /// <param name="maxLength">Maximum length of randomly string generated.</param>
         /// <param name="stringComposition">Enumeration of string composition.</param>
-        /// <returns></returns>
+        /// <returns>String.</returns>
         public static string NextString(
              this Random random,
              int minLength,
@@ -169,11 +201,11 @@ namespace Magenic.SharedKernel
                 stringComposition);
 
         /// <summary>
-        /// Randomly generates a character value.
+        /// Generates a random char with specified composition.
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
-        /// <param name="charType">Enumeration of string composition.</param>
-        /// <returns></returns>
+        /// <param name="charType">Specifies type of random char to be generated.</param>
+        /// <returns>Char.</returns>
         public static char NextChar(
              this Random random,
              StringComposition charType = StringComposition.AlphaNumeric)
@@ -183,6 +215,11 @@ namespace Magenic.SharedKernel
 
         #region Private Methods
 
+        /// <summary>
+        /// Generates pool from which random characters are pulled.
+        /// </summary>
+        /// <param name="stringComposition">Specifies composition.</param>
+        /// <returns>Char array.</returns>
         private static char[] GenerateSource(
              StringComposition stringComposition)
         {
