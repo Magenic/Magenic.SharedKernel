@@ -28,6 +28,21 @@ namespace Magenic.SharedKernel
 
         #endregion
 
+        #region Properties
+
+        /// <summary>
+        /// Gettor for random number generator object.
+        /// </summary>
+        public RandomNumberGenerator RNG
+        {
+            get
+            {
+                return _rng;
+            }
+        }
+
+        #endregion
+
         #region Creation
 
         /// <summary>
@@ -95,14 +110,20 @@ namespace Magenic.SharedKernel
         /// <returns>An integer that is greater than or equal to 0 and less than maxValue.</returns>
         public int Next(int maxValue)
         {
-            if (maxValue < 0)
+            if (maxValue > 0)
+            {
+                return Next() % maxValue;
+            }
+            else if (maxValue == 0)
+            {
+                return 0;
+            }
+            else
             {
                 throw new ArgumentOutOfRangeException(
                     nameof(maxValue),
                     "Must be greater than or equal to 0.");
             }
-
-            return Next() % maxValue;
         }
 
         /// <summary>
@@ -116,6 +137,7 @@ namespace Magenic.SharedKernel
             if (maxValue < minValue)
             {
                 throw new ArgumentOutOfRangeException(
+                    nameof(minValue),
                     $"The parameter {nameof(maxValue)} must be greater than or equal to " +
                     $"the parameter {nameof(minValue)}!");
             }

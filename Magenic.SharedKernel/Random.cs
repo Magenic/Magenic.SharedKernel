@@ -111,7 +111,7 @@ namespace Magenic.SharedKernel
         /// Static representation of a byte as if next byte in a byte array is being read.
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
-        /// <returns>Random byte.</returns>
+        /// <returns>Byte.</returns>
         public static byte NextByte(this Random random) => random.NextBytes(1)[0];
 
         /// <summary>
