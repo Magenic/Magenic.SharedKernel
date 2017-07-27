@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magenic.SharedKernel", "Mag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magenic.SharedKernel.Tests", "Magenic.SharedKernel.Tests\Magenic.SharedKernel.Tests.csproj", "{4349B180-5E48-4EAF-9B74-8B8592EEB566}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppSample", "ConsoleAppSample\ConsoleAppSample.csproj", "{19F334C2-F657-469B-860D-94DB8CE7067F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4349B180-5E48-4EAF-9B74-8B8592EEB566}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4349B180-5E48-4EAF-9B74-8B8592EEB566}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4349B180-5E48-4EAF-9B74-8B8592EEB566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19F334C2-F657-469B-860D-94DB8CE7067F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F334C2-F657-469B-860D-94DB8CE7067F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F334C2-F657-469B-860D-94DB8CE7067F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F334C2-F657-469B-860D-94DB8CE7067F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
