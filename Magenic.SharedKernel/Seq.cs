@@ -598,6 +598,14 @@ namespace Magenic.SharedKernel
             => source.ElementAt(random.Next(0, source.Count()));
 
         /// <summary>
+        /// Returns a random reference into source.
+        /// </summary>
+        public static TSource RandomRef<TSource>(
+             this IEnumerable<TSource> source,
+             SecureRandom secureRandom)
+            => source.ElementAt(secureRandom.Next(0, source.Count()));
+
+        /// <summary>
         /// Generates a lazy sequence resulting from calling fn count times.
         /// </summary>
         public static IEnumerable<TResult> Repeat<TResult>(

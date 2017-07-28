@@ -38,6 +38,17 @@ namespace Magenic.SharedKernel
              this TSource[] array,
              Random random) => array[random.Next(0, array.Length)];
 
+        /// <summary>
+        /// Returns a random reference into array.
+        /// </summary>
+        /// <typeparam name="TSource">Generic data type of array.</typeparam>
+        /// <param name="array">Collection out of which a random reference is returned.</param>
+        /// <param name="secureRandom">An instance of an object of type SecureRandom.</param>
+        /// <returns>Random reference from array.</returns>
+        public static TSource RandomRef<TSource>(
+             this TSource[] array,
+             SecureRandom secureRandom) => array[secureRandom.Next(0, array.Length)];
+
         #endregion
     }
 }

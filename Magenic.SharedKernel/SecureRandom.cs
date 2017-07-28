@@ -4,8 +4,7 @@ using System.Security.Cryptography;
 namespace Magenic.SharedKernel
 {
     /// <summary>
-    /// Secure random class with the capability of passing down a RandomNumberGenerator
-    /// object or having one created for you.
+    /// Cryptographically secure random class.
     /// </summary>
     /// <remarks>This class implements IDisposable.</remarks>
     public class SecureRandom : DisposableObject
@@ -22,24 +21,8 @@ namespace Magenic.SharedKernel
         #region Fields
 
         private readonly byte[] _buffer = new byte[BUFFER_SIZE];
-        private readonly double DENOMINTAOR = Convert.ToDouble(int.MaxValue);
         private int _offset = BUFFER_SIZE;
         private readonly RandomNumberGenerator _rng;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gettor for random number generator object.
-        /// </summary>
-        public RandomNumberGenerator RNG
-        {
-            get
-            {
-                return _rng;
-            }
-        }
 
         #endregion
 
@@ -54,31 +37,12 @@ namespace Magenic.SharedKernel
         }
 
         /// <summary>
-        /// Constructor that takes in a random number generator object.
-        /// </summary>
-        /// <param name="rng">RandomNumberGenerator object.</param>
-        private SecureRandom(RandomNumberGenerator rng)
-        {
-            _rng = rng;
-        }
-
-        /// <summary>
         /// Factory method.
         /// </summary>
         /// <returns>SecureRandom object.</returns>
         public static SecureRandom Create()
         {
             return new SecureRandom();
-        }
-
-        /// <summary>
-        /// Factory method that takes in a random number generator object.
-        /// </summary>
-        /// <param name="rng">RandomNumberGenerator object.</param>
-        /// <returns>SecureRandom object.</returns>
-        public static SecureRandom Create(RandomNumberGenerator rng)
-        {
-            return new SecureRandom(rng);
         }
 
         #endregion
@@ -148,44 +112,85 @@ namespace Magenic.SharedKernel
         }
 
         /// <summary>
+        /// Extension method for Random object that returns a boolean value that is either True or False.
+        /// </summary>
+        /// <param name="random">Random object that is being extended.</param>
+        /// <returns>Returns a boolean value that is either True or False.</returns>
+        public bool NextBool() => RandomEx.WithNextBool(Next);
+
+        /// <summary>
+        /// Returns a random byte.
+        /// </summary>
+        /// <returns>Byte.</returns>
+        public byte NextByte() => RandomEx.WithNextByte(NextBytes);
+
+        /// <summary>
         /// Returns an array of random bytes.
         /// </summary>
         /// <param name="length">Desired length of the randomly created byte array.</param>
         /// <returns>Byte array.</returns>
         public byte[] NextBytes(int length)
-        {
-            if (length > 0)
-            {
-                byte[] randomByteArray = new byte[length];
+            => RandomEx.WithNextBytes(_rng.GetBytes, length);
 
-                _rng.GetBytes(randomByteArray);
+        /// <summary>
+        /// Generates a random char with specified composition.
+        /// </summary>
+        /// <param name="charType">Specifies type of random char to be generated.</param>
+        /// <returns>Char.</returns>
+        public char NextChar(
+             StringComposition charType = StringComposition.AlphaNumeric)
+            => RandomEx.WithNextChar(NextString, charType);
 
-                return randomByteArray;
-            }
-            else if (length == 0)
-            {
-                return Array.Empty<byte>();
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(length),
-                    "Must be greater than or equal to 0.");
-            }
-        }
+        /// <summary>
+        /// Generates a random decimal.
+        /// </summary>
+        /// <returns>Decimal.</returns>
+        public decimal NextDecimal() => RandomEx.WithNextDecimal(Next, Next);
 
         /// <summary>
         /// Returns a random double.
         /// </summary>
         /// <returns>Double in the range 0 to 1.</returns>
-        public double NextDouble()
-        {
-            int next = Next();
-            double numerator = Convert.ToDouble(next);
-            double val = numerator / DENOMINTAOR;
+        public double NextDouble() => RandomEx.WithNextDouble(Next);
 
-            return val;
-        }
+        /// <summary>
+        /// Generates a random long.
+        /// </summary>
+        /// <returns>Long.</returns>
+        public long NextLong() => RandomEx.WithNextLong(NextBytes, Next);
+
+        /// <summary>
+        /// Generates a random short.
+        /// </summary>
+        /// <returns>Short.</returns>
+        public short NextShort() => RandomEx.WithNextShort(Next);
+
+        /// <summary>
+        /// Generates a random string with specified length and composition.
+        /// </summary>
+        /// <param name="length">Desired length of generated string..</param>
+        /// <param name="stringComposition">Enumerated type specifying string composition.</param>
+        /// <returns>String.</returns>
+        public string NextString(
+             int length,
+             StringComposition stringComposition = StringComposition.AlphaNumeric)
+            => RandomEx.WithNextString(
+                source => source.RandomRef(this),
+                length,
+                stringComposition);
+
+        /// <summary>
+        /// Generates a random string with specified length range and composition.
+        /// </summary>
+        /// <param name="minLength">Minimum length of randomly string generated.</param>
+        /// <param name="maxLength">Maximum length of randomly string generated.</param>
+        /// <param name="stringComposition">Enumeration of string composition.</param>
+        /// <returns>String.</returns>
+        public string NextString(
+             int minLength,
+             int maxLength,
+             StringComposition stringComposition = StringComposition.AlphaNumeric)
+            => NextString(Next(minLength, maxLength), stringComposition);
 
         #endregion
 

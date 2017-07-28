@@ -4,9 +4,13 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <Authors>Ray Harake</Authors>
     <Company>Magenic</Company>
-    <Description>Magenic Shared Kernel.</Description>
+    <Description>Magenic Shared Kernel factors out common and repeat patterns. Functional Programming Leaning. Implements utility and extension methods on sequences, collections, strings, vectors, arrays, disposables, Random, Guids, etc. Created in 2012 and has been evolving ever since.</Description>
     <Copyright>Copyright © 2017</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/Magenic/Magenic.SharedKernel/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Magenic/Magenic.SharedKernel</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Magenic/Magenic.SharedKernel.git</RepositoryUrl>
+    <RepositoryType>GItHub</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
