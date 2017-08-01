@@ -9,7 +9,7 @@ using Xunit;
 namespace Magenic.SharedKernel.Tests
 {
     /// <summary>
-    /// This class implements unit tests for RandomEx utility class.
+    /// This class implements unit tests for Pseudo Random class.
     /// </summary>
     public class RandomTests
     {
@@ -90,7 +90,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for Create.
         ///</summary>
         [Fact]
-        public void Random_Create()
+        public void PseudoRandom_Create()
         {
             Random random0 = PseudoRandom.Create(1513162799);
             Random random1 = PseudoRandom.Create(1918435865);
@@ -141,7 +141,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for CreateWithTimeDependentSeed.
         ///</summary>
         [Fact]
-        public void Random_CreateWithTimeDependentSeed()
+        public void PseudoRandom_CreateWithTimeDependentSeed()
         {
             Random random = PseudoRandom.CreateWithTimeDependentSeed();
 
@@ -180,7 +180,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for NextBool.
         ///</summary>
         [Fact]
-        public void Random_NextBool()
+        public void PseudoRandom_NextBool()
         {
             Random random = PseudoRandom.Create(42342344);
 
@@ -207,7 +207,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for NextBytes.
         ///</summary>
         [Fact]
-        public void Random_NextBytes()
+        public void PseudoRandom_NextBytes()
         {
             Random random0 = PseudoRandom.Create(6814614);
             Random random1 = PseudoRandom.Create(6814614);
@@ -248,7 +248,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for NextByte.
         ///</summary>
         [Fact]
-        public void Random_NextByte()
+        public void PseudoRandom_NextByte()
         {
             Random random0 = PseudoRandom.Create(28647);
             Random random1 = PseudoRandom.Create(28647);
@@ -288,7 +288,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for NextShort.
         ///</summary>
         [Fact]
-        public void Random_NextShort()
+        public void PseudoRandom_NextShort()
         {
             Random random0 = PseudoRandom.Create(23424234);
             Random random1 = PseudoRandom.Create(23424234);
@@ -322,7 +322,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for NextLong.
         ///</summary>
         [Fact]
-        public void Random_NextLong()
+        public void PseudoRandom_NextLong()
         {
             Random random0 = PseudoRandom.Create(1287654);
             Random random1 = PseudoRandom.Create(1287654);
@@ -356,7 +356,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for NextDecimal.
         ///</summary>
         [Fact]
-        public void Random_NextDecimal()
+        public void PseudoRandom_NextDecimal()
         {
             Random random0 = PseudoRandom.Create(8745412);
             Random random1 = PseudoRandom.Create(8745412);
@@ -392,7 +392,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for NextString.
         ///</summary>
         [Fact]
-        public void Random_NextString()
+        public void PseudoRandom_NextString()
         {
             Random random = PseudoRandom.Create(241527863);
             string alphaNumericChars =
@@ -464,7 +464,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for NextStringWithMinMax.
         ///</summary>
         [Fact]
-        public void Random_NextStringWithMinMax()
+        public void PseudoRandom_NextStringWithMinMax()
         {
             Random random = PseudoRandom.Create(452278);
 
@@ -521,7 +521,7 @@ namespace Magenic.SharedKernel.Tests
         /// A test for NextChar.
         ///</summary>
         [Fact]
-        public void Random_NextChar()
+        public void PseudoRandom_NextChar()
         {
             Random random = PseudoRandom.Create(765673);
 
