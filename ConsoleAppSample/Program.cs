@@ -18,31 +18,32 @@ namespace ConsoleAppSample
             int max = 64;
             int len = 16;
 
-            ClearSpace();
-            ClearSpace();
+            Util.Repeat(() => ClearSpace(), 2);
 
             Console.WriteLine(stars);
 
-            using (SecureRandom sr = SecureRandom.Create())
-            {
-                Console.WriteLine($"Random int: {sr.Next()}.");
-                Console.WriteLine($"Random int with max {max}: {sr.Next(max)}.");
-                Console.WriteLine(
-                    $"Random int with min {min} and max {max}: {sr.Next(min, max)}.");
-                Console.WriteLine($"Random bool: {sr.NextBool()}.");
-                Console.WriteLine($"Random byte: {sr.NextByte()}.");
-                Console.WriteLine($"Random char: {sr.NextChar()}.");
-                Console.WriteLine($"Random decimal: {sr.NextDecimal()}.");
-                Console.WriteLine($"Random double: {sr.NextDouble()}.");
-                Console.WriteLine($"Random long: {sr.NextLong()}.");
-                Console.WriteLine($"Random short: {sr.NextShort()}.");
-                Console.WriteLine(
-                    $"Random alphanumeric string of length {len}: {sr.NextString(16)}.");
-            }
+            Flow.Using(
+                SecureRandom.Create(),
+                sr => Seq.List(
+                    $"Random int: {sr.Next()}.",
+                    $"Random int with max {max}: {sr.Next(max)}.",
+                    $"Random int with min {min} and max {max}: {sr.Next(min, max)}.",
+                    $"Random bool: {sr.NextBool()}.",
+                    $"Random byte: {sr.NextByte()}.",
+                    $"Random char: {sr.NextChar()}.",
+                    $"Random decimal: {sr.NextDecimal()}.",
+                    $"Random double: {sr.NextDouble()}.",
+                    $"Random long: {sr.NextLong()}.",
+                    $"Random short: {sr.NextShort()}.",
+                    $"Random alphanumeric string of length {len}: {sr.NextString(16)}.")
+                        .Apply(s => Console.WriteLine(s)));
 
-            Console.WriteLine("Hit Enter to exit console application.");
-            Console.WriteLine(stars);
+            Console.WriteLine(Seq.List(
+                "Hit Enter to exit console application.",
+                stars).JoinWithNewLine());
+
             ClearSpace();
+
             Console.ReadLine();
         }
     }

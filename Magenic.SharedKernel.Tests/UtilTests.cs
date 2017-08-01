@@ -20,7 +20,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Util_Repeat()
         {
-            Random rnd = RandomEx.Create(4234895);
+            Random rnd = PseudoRandom.Create(4234895);
             int count = rnd.Next(2, 10);
             int testVal = 0;            
 
@@ -41,7 +41,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Util_Repeat_WithStringBuilder()
         {
-            Random random = RandomEx.Create(158131364);
+            Random random = PseudoRandom.Create(158131364);
             StringBuilder sb = StringEx.CreateSB();
 
             Seq.List<object>(random, sb).Apply(Assert.NotNull);
@@ -72,7 +72,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Util_Repeat_WithParam()
         {
-            Random rnd = RandomEx.Create(2324345);
+            Random rnd = PseudoRandom.Create(2324345);
             int count = rnd.Next(2, 10);            
             int testVal1 = 0;
             int testVal2 = 0;

@@ -92,8 +92,8 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_Create()
         {
-            Random random0 = RandomEx.Create(1513162799);
-            Random random1 = RandomEx.Create(1918435865);
+            Random random0 = PseudoRandom.Create(1513162799);
+            Random random1 = PseudoRandom.Create(1918435865);
 
             Seq.List(random0, random1).Apply(r =>
             {
@@ -105,8 +105,8 @@ namespace Magenic.SharedKernel.Tests
             // generate different pseudo random sequences.
             Util.Repeat(() => Assert.NotEqual(random0.Next(), random1.Next()), 16);
 
-            random0 = RandomEx.Create(6543);
-            random1 = RandomEx.Create(6543);
+            random0 = PseudoRandom.Create(6543);
+            random1 = PseudoRandom.Create(6543);
 
             Seq.List(random0, random1).Apply(r =>
             {
@@ -123,8 +123,8 @@ namespace Magenic.SharedKernel.Tests
             Util.Repeat(() => Assert.Equal(random0.NextBool(), random1.NextBool()), 16);
             Util.Repeat(() => Assert.Equal(random0.NextChar(), random1.NextChar()), 32);
 
-            random0 = RandomEx.Create();
-            random1 = RandomEx.Create();
+            random0 = PseudoRandom.Create();
+            random1 = PseudoRandom.Create();
 
             Seq.List(random0, random1).Apply(r =>
             {
@@ -143,7 +143,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_CreateWithTimeDependentSeed()
         {
-            Random random = RandomEx.CreateWithTimeDependentSeed();
+            Random random = PseudoRandom.CreateWithTimeDependentSeed();
 
             Assert.NotNull(random);
             Assert.IsType<Random>(random);
@@ -161,7 +161,7 @@ namespace Magenic.SharedKernel.Tests
             Assert.NotEmpty(list);
             list.Should().OnlyHaveUniqueItems();
 
-            Random random0 = RandomEx.CreateWithTimeDependentSeed();
+            Random random0 = PseudoRandom.CreateWithTimeDependentSeed();
             Random random1 = new Random();
 
             Seq.List(random0, random1).Apply(r =>
@@ -182,7 +182,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_NextBool()
         {
-            Random random = RandomEx.Create(42342344);
+            Random random = PseudoRandom.Create(42342344);
 
             Assert.NotNull(random);
             Assert.IsType<Random>(random);
@@ -209,8 +209,8 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_NextBytes()
         {
-            Random random0 = RandomEx.Create(6814614);
-            Random random1 = RandomEx.Create(6814614);
+            Random random0 = PseudoRandom.Create(6814614);
+            Random random1 = PseudoRandom.Create(6814614);
             byte[] buffer = new byte[33];
 
             Seq.List(random0, random1).Apply(r =>
@@ -250,8 +250,8 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_NextByte()
         {
-            Random random0 = RandomEx.Create(28647);
-            Random random1 = RandomEx.Create(28647);
+            Random random0 = PseudoRandom.Create(28647);
+            Random random1 = PseudoRandom.Create(28647);
             byte[] buffer = new byte[1];
 
             Seq.List(random0, random1).Apply(r =>
@@ -290,8 +290,8 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_NextShort()
         {
-            Random random0 = RandomEx.Create(23424234);
-            Random random1 = RandomEx.Create(23424234);
+            Random random0 = PseudoRandom.Create(23424234);
+            Random random1 = PseudoRandom.Create(23424234);
             
             Seq.List(random0, random1).Apply(r =>
             {
@@ -324,8 +324,8 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_NextLong()
         {
-            Random random0 = RandomEx.Create(1287654);
-            Random random1 = RandomEx.Create(1287654);
+            Random random0 = PseudoRandom.Create(1287654);
+            Random random1 = PseudoRandom.Create(1287654);
 
             Seq.List(random0, random1).Apply(r =>
             {
@@ -358,8 +358,8 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_NextDecimal()
         {
-            Random random0 = RandomEx.Create(8745412);
-            Random random1 = RandomEx.Create(8745412);
+            Random random0 = PseudoRandom.Create(8745412);
+            Random random1 = PseudoRandom.Create(8745412);
 
             Seq.List(random0, random1).Apply(r =>
             {
@@ -394,7 +394,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_NextString()
         {
-            Random random = RandomEx.Create(241527863);
+            Random random = PseudoRandom.Create(241527863);
             string alphaNumericChars =
                 "0123456789abcdefghijklmnopqrstuvqxyzABCDEFGHIJKLMNOPQRSTUVQXYZ";
             string s = random.NextString(512, 1024);
@@ -466,7 +466,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_NextStringWithMinMax()
         {
-            Random random = RandomEx.Create(452278);
+            Random random = PseudoRandom.Create(452278);
 
             Assert.NotNull(random);
             Assert.IsType<Random>(random);
@@ -523,7 +523,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Random_NextChar()
         {
-            Random random = RandomEx.Create(765673);
+            Random random = PseudoRandom.Create(765673);
 
             Assert.NotNull(random);
             Assert.IsType<Random>(random);

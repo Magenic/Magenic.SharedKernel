@@ -356,7 +356,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Flow_With_Side_Effects_2()
         {
-            Random random = RandomEx.Create(245005959);
+            Random random = PseudoRandom.Create(245005959);
             StringBuilder sb = StringEx.CreateSB();
 
             Seq.List<object>(random, sb).Apply(o => Assert.NotNull(o));
@@ -415,7 +415,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Flow_With_Side_Effects_Map_1()
         {
-            Random random = RandomEx.Create(535002726);
+            Random random = PseudoRandom.Create(535002726);
             StringBuilder sb = StringEx.CreateSB();
 
             Seq.List<object>(random, sb).Apply(o => Assert.NotNull(o));
@@ -489,7 +489,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Flow_Using_1()
         {
-            Random random = RandomEx.Create(604374934);
+            Random random = PseudoRandom.Create(604374934);
             byte[] byteArray = random.NextBytes(random.Next(4, 99));
             long streamLength = 0;
             MemoryStream stream = null;
@@ -521,7 +521,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Flow_Using_2()
         {
-            Random random = RandomEx.Create(312926648);
+            Random random = PseudoRandom.Create(312926648);
             byte[] byteArray = random.NextBytes(random.Next(3, 56));
             MemoryStream stream = null;
             long streamLength = Flow.Using(
@@ -551,7 +551,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Flow_Using_5()
         {
-            Random random = RandomEx.Create(962556634);
+            Random random = PseudoRandom.Create(962556634);
             byte[] byteArray = random.NextBytes(random.Next(9, 72));
             long length1 = 0;
             long length2 = 0;
@@ -602,7 +602,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Flow_Using_8()
         {
-            Random random = RandomEx.Create(748530178);
+            Random random = PseudoRandom.Create(748530178);
             byte[] byteArray = random.NextBytes(random.Next(9, 87));
             long length1 = 0;
             long length2 = 0;
@@ -653,7 +653,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Flow_Using_11()
         {
-            Random random = RandomEx.Create(443535025);
+            Random random = PseudoRandom.Create(443535025);
             byte[] byteArray = random.NextBytes(random.Next(5, 41));
             long length1 = 0;
             long length2 = 0;
@@ -722,7 +722,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Flow_Using_14()
         {
-            Random random = RandomEx.Create(96375672);
+            Random random = PseudoRandom.Create(96375672);
             byte[] byteArray = random.NextBytes(random.Next(8, 64));
             long length1 = 0;
             long length2 = 0;

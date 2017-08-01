@@ -215,7 +215,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Col_CreateMap_2()
         {
-            Random random = RandomEx.Create(1739494172);
+            Random random = PseudoRandom.Create(1739494172);
             IEnumerable<int> keys = Enumerable.Range(0, 13);
 
             Seq.List<object>(random, keys).Apply(o => Assert.NotNull(o));
@@ -421,7 +421,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Col_Repeat_2()
         {
-            Random random0 = RandomEx.Create(6533587);
+            Random random0 = PseudoRandom.Create(6533587);
 
             Assert.NotNull(random0);
             Assert.IsType<Random>(random0);
@@ -431,7 +431,7 @@ namespace Magenic.SharedKernel.Tests
 
             Assert.NotNull(list0);
 
-            Random random1 = RandomEx.Create(6533587);
+            Random random1 = PseudoRandom.Create(6533587);
 
             Assert.NotNull(random1);
             Assert.IsType<Random>(random1);

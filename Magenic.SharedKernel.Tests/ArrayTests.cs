@@ -54,7 +54,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Array_RandomRef()
         {
-            Random random = RandomEx.Create(2131709272);
+            Random random = PseudoRandom.Create(2131709272);
             IEnumerable<int> seq = Seq.List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
             Seq.List<object>(random, seq).Apply(o => Assert.NotNull(o));

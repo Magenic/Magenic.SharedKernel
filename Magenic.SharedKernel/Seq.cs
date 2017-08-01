@@ -30,7 +30,7 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Random object with a non-time dependent seed.
         /// </summary>
-        private static readonly Random _random = RandomEx.Create();
+        private static readonly Random _random = PseudoRandom.Create();
 
         /// <summary>
         /// Session Id.

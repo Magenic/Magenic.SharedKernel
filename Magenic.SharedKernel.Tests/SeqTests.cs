@@ -41,7 +41,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Seq_RandomRef()
         {
-            Random random = RandomEx.Create(1957787834);
+            Random random = PseudoRandom.Create(1957787834);
 
             Assert.NotNull(random);
 
@@ -65,7 +65,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Seq_Map()
         {
-            Random random = RandomEx.Create(178221420);
+            Random random = PseudoRandom.Create(178221420);
 
             Assert.NotNull(random);
 
@@ -487,7 +487,7 @@ namespace Magenic.SharedKernel.Tests
         public void Seq_AppendFormat()
         {
             string format = "{0}{1}{2}{3}.";
-            Random random = RandomEx.Create(548818888);
+            Random random = PseudoRandom.Create(548818888);
             IList<string> list = ColEx.Repeat(() => random.NextString(4, 16), 5);
             string s0 = string.Format(
                 format, list[0], list[1], list[2], list[3]);
@@ -516,7 +516,7 @@ namespace Magenic.SharedKernel.Tests
         public void Seq_Append()
         {
             IEnumerable<string> seq = Enumerable.Empty<string>();
-            Random random = RandomEx.Create(827400392);
+            Random random = PseudoRandom.Create(827400392);
             IList<string> list0 = ColEx.Repeat(() => random.NextString(4, 8), 3);
             IList<string> list1 = ColEx.Repeat(() => random.NextString(9, 16), 4);
             List<string> combo = ColEx.CreateList(list0) as List<string>;
@@ -574,10 +574,10 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Seq_Repeat()
         {
-            Random random0 = RandomEx.Create(380572830);
+            Random random0 = PseudoRandom.Create(380572830);
             IEnumerable<string> seq = Seq
                 .Repeat(() => random0.NextString(8, 16), random0.Next(128, 256));
-            Random random1 = RandomEx.Create(380572830);
+            Random random1 = PseudoRandom.Create(380572830);
             int count = random1.Next(128, 256);
             IList<string> list = ColEx.CreateList<string>();
 

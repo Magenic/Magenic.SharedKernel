@@ -88,7 +88,7 @@ namespace Magenic.SharedKernel.Tests
 
         private Uri CreateBaseUri()
         {
-            Random random = RandomEx.Create(7973323);
+            Random random = PseudoRandom.Create(7973323);
             string resourcePrefix = random.NextString(8, 16);
             string baseAddress = random.NextString(8, 16);
             string webServicesGroup = random.NextString(8, 16);

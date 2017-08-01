@@ -50,7 +50,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void String_CreateSB()
         {
-            Random random = RandomEx.Create(1687561716);
+            Random random = PseudoRandom.Create(1687561716);
 
             Assert.NotNull(random);
             Assert.IsType<Random>(random);
@@ -86,7 +86,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void String_CreateString()
         {
-            Random random = RandomEx.Create(1001336863);
+            Random random = PseudoRandom.Create(1001336863);
 
             Assert.NotNull(random);
             Assert.IsType<Random>(random);
@@ -138,7 +138,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void String_Prepend()
         {
-            Random random = RandomEx.Create(450441753);
+            Random random = PseudoRandom.Create(450441753);
 
             Assert.NotNull(random);
             Assert.IsType<Random>(random);
@@ -165,7 +165,7 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void String_TrimIfSet()
         {
-            Random random = RandomEx.Create(645439842);
+            Random random = PseudoRandom.Create(645439842);
 
             Assert.NotNull(random);
             Assert.IsType<Random>(random);

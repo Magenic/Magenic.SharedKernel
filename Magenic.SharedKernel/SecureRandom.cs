@@ -116,13 +116,13 @@ namespace Magenic.SharedKernel
         /// </summary>
         /// <param name="random">Random object that is being extended.</param>
         /// <returns>Returns a boolean value that is either True or False.</returns>
-        public bool NextBool() => RandomEx.WithNextBool(Next);
+        public bool NextBool() => RandomUtil.WithNextBool(Next);
 
         /// <summary>
         /// Returns a random byte.
         /// </summary>
         /// <returns>Byte.</returns>
-        public byte NextByte() => RandomEx.WithNextByte(NextBytes);
+        public byte NextByte() => RandomUtil.WithNextByte(NextBytes);
 
         /// <summary>
         /// Returns an array of random bytes.
@@ -130,40 +130,39 @@ namespace Magenic.SharedKernel
         /// <param name="length">Desired length of the randomly created byte array.</param>
         /// <returns>Byte array.</returns>
         public byte[] NextBytes(int length)
-            => RandomEx.WithNextBytes(_rng.GetBytes, length);
+            => RandomUtil.WithNextBytes(_rng.GetBytes, length);
 
         /// <summary>
         /// Generates a random char with specified composition.
         /// </summary>
         /// <param name="charType">Specifies type of random char to be generated.</param>
         /// <returns>Char.</returns>
-        public char NextChar(
-             StringComposition charType = StringComposition.AlphaNumeric)
-            => RandomEx.WithNextChar(NextString, charType);
+        public char NextChar(StringComposition charType = StringComposition.AlphaNumeric)
+            => RandomUtil.WithNextChar(NextString, charType);
 
         /// <summary>
         /// Generates a random decimal.
         /// </summary>
         /// <returns>Decimal.</returns>
-        public decimal NextDecimal() => RandomEx.WithNextDecimal(Next, Next);
+        public decimal NextDecimal() => RandomUtil.WithNextDecimal(Next, Next);
 
         /// <summary>
         /// Returns a random double.
         /// </summary>
         /// <returns>Double in the range 0 to 1.</returns>
-        public double NextDouble() => RandomEx.WithNextDouble(Next);
+        public double NextDouble() => RandomUtil.WithNextDouble(Next);
 
         /// <summary>
         /// Generates a random long.
         /// </summary>
         /// <returns>Long.</returns>
-        public long NextLong() => RandomEx.WithNextLong(NextBytes, Next);
+        public long NextLong() => RandomUtil.WithNextLong(NextBytes, Next);
 
         /// <summary>
         /// Generates a random short.
         /// </summary>
         /// <returns>Short.</returns>
-        public short NextShort() => RandomEx.WithNextShort(Next);
+        public short NextShort() => RandomUtil.WithNextShort(Next);
 
         /// <summary>
         /// Generates a random string with specified length and composition.
@@ -174,7 +173,7 @@ namespace Magenic.SharedKernel
         public string NextString(
              int length,
              StringComposition stringComposition = StringComposition.AlphaNumeric)
-            => RandomEx.WithNextString(
+            => RandomUtil.WithNextString(
                 source => source.RandomRef(this),
                 length,
                 stringComposition);
