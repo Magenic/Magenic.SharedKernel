@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Magenic.SharedKernel
@@ -90,13 +92,27 @@ namespace Magenic.SharedKernel
         }
 
         /// <summary>
-        /// Clears source and then appends value to it.
+        /// Returns true if passed in string sequence is null or empty.
+        /// Returns true if passed in string sequence is comprised of null or empty string(s).
+        /// Otherwise returns false.
         /// </summary>
-        public static StringBuilder Set(
-            this StringBuilder source,
-            string value)
+        /// <param name="source">A sequence of strings.</param>
+        /// <returns>Boolean.</returns>
+        public static bool IsNullOrEmpty(IEnumerable<string> source)
         {
-            return source.Clear().Append(value);
+            return WithIsNullOrEmptyOrAll(source, string.IsNullOrEmpty);
+        }
+
+        /// <summary>
+        /// Returns true if passed in string sequence is null or empty.
+        /// Returns true if passed in string sequence is comprised of null or whitespace string(s).
+        /// Otherwise returns false.
+        /// </summary>
+        /// <param name="source">A sequence of strings.</param>
+        /// <returns>Boolean.</returns>
+        public static bool IsNullOrWhiteSpace(IEnumerable<string> source)
+        {
+            return WithIsNullOrEmptyOrAll(source, string.IsNullOrWhiteSpace);
         }
 
         /// <summary>
@@ -110,6 +126,16 @@ namespace Magenic.SharedKernel
         }
 
         /// <summary>
+        /// Clears source and then appends value to it.
+        /// </summary>
+        public static StringBuilder Set(
+            this StringBuilder source,
+            string value)
+        {
+            return source.Clear().Append(value);
+        }
+
+        /// <summary>
         /// Trims passed in string if it is not null or empty.
         /// </summary>
         /// <param name="text">String.</param>
@@ -119,6 +145,17 @@ namespace Magenic.SharedKernel
             return (!string.IsNullOrEmpty(text))
                 ? text.Trim()
                 : text;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private static bool WithIsNullOrEmptyOrAll(
+            IEnumerable<string> source,
+            Func<string, bool> fnAll)
+        {
+            return (Seq.IsNullOrEmpty(source) || source.All(fnAll));
         }
 
         #endregion

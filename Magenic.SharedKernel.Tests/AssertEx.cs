@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 
+using FluentAssertions;
+
 using Xunit;
 
 namespace Magenic.SharedKernel.Tests
@@ -38,11 +40,23 @@ namespace Magenic.SharedKernel.Tests
         }
 
         /// <summary>
-        /// Asserts that the object is not null and of type T.
+        /// Asserts that the string testableString is not null, not empty, not white space and of type string.
         /// </summary>
-        /// <typeparam name="T">Type of the object.</typeparam>
-        /// <param name="obj">The object to be evaluated.</param>
-        public static void NotNullOfType<T>(T obj)
+        /// <param name="testableString">String to assert on.</param>
+        public static void NotNullOrWhiteSpaceOfType(string testableString)
+        {
+            Assert.NotNull(testableString);
+            Assert.IsType<string>(testableString);
+            Assert.NotEmpty(testableString);
+            testableString.Should().NotBeNullOrWhiteSpace();
+        }
+
+    /// <summary>
+    /// Asserts that the object is not null and of type T.
+    /// </summary>
+    /// <typeparam name="T">Type of the object.</typeparam>
+    /// <param name="obj">The object to be evaluated.</param>
+    public static void NotNullOfType<T>(T obj)
             where T : class
         {
             Assert.NotNull(obj);

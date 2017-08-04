@@ -73,8 +73,7 @@ namespace Magenic.SharedKernel
         /// <returns></returns>
         public static IEnumerable<TSource> Append<TSource>(
              this IEnumerable<TSource> source,
-             TSource element)
-            => source.Concat(List(element));
+             TSource element) => source.Concat(List(element));
 
         /// <summary>
         /// Appends a formatted string to source.
@@ -89,8 +88,7 @@ namespace Magenic.SharedKernel
         public static IEnumerable<string> AppendFormat(
              this IEnumerable<string> source,
              string format,
-             params object[] args)
-            => source.Append(string.Format(format, args));
+             params object[] args) => source.Append(string.Format(format, args));
 
         /// <summary>
         /// Applies fn onto each element in source.
@@ -216,6 +214,7 @@ namespace Magenic.SharedKernel
                 }
             }
         }
+
         /// <summary>
         ///  Projects each element of a sequence to an IEnumerable<TResult> and flattens the resulting sequences into one sequence.
         /// </summary>
@@ -246,6 +245,7 @@ namespace Magenic.SharedKernel
                 }
             }
         }
+
         /// <summary>
         /// Projects each element of a sequence to an IEnumerable<TResult> and flattens the resulting sequences into one sequence.
         /// </summary>
@@ -279,6 +279,7 @@ namespace Magenic.SharedKernel
                 }
             }
         }
+
         /// <summary>
         /// Projects each element of a sequence to an IEnumerable<TResult> and flattens the resulting sequences into one sequence.
         /// </summary>
@@ -350,6 +351,7 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Checks if sequence is null or empty.
         /// </summary>
+        /// <param name="source">A sequence of TSource objects.</param>
         /// <returns>True if source is null or empty otherwise False.</returns>
         public static bool IsNullOrEmpty<TSource>(IEnumerable<TSource> source)
         {
@@ -376,13 +378,15 @@ namespace Magenic.SharedKernel
         /// <typeparam name="TSource">Generic type of the target object for this extension.</typeparam>
         /// <param name="source">An instance of IEnumerable object of type TSource.</param>
         /// <param name="separator">String delimiter.</param>
+        /// <remarks>
+        /// Uses string.Join underneath which performs string concatenation.
+        /// While expedient and convenient, repeat use of string.Join on large data sets
+        /// in long running processes may result in gradual reduction in available memory.
+        /// </remarks>
         /// <returns>A string that consists of the elements in source delimited by separator.</returns>
         public static string Join<TSource>(
              this IEnumerable<TSource> source,
-             string separator)
-        {
-            return string.Join(separator, source);
-        }
+             string separator) => string.Join(separator, source);
 
         /// <summary>
         /// Concatenates all elements in the source using NewLine as string separator. 
@@ -391,10 +395,7 @@ namespace Magenic.SharedKernel
         /// <param name="source">An instance of IEnumerable object of type TSource.</param>
         /// <returns>A string that consists of the elements in source delimited by new line.</returns>
         public static string JoinWithNewLine<TSource>(
-             this IEnumerable<TSource> source)
-        {
-            return source.Join(Environment.NewLine);
-        }
+             this IEnumerable<TSource> source) => source.Join(Environment.NewLine);
 
         /// <summary>
         /// Concatenates all elements in the source using specified conjunction term ex. And, Or etc.
@@ -437,8 +438,7 @@ namespace Magenic.SharedKernel
         /// <typeparam name="TSource">Generic type of the target object for this extension.</typeparam>
         /// <param name="source">An instance of IEnumerable object of type TSource.</param><returns>IEnumerable object of type TSource</returns>
         /// <returns>A string that consists of the elements in source delimited by comma and and at the end.</returns>
-        public static string JoinWithAnd<TSource>(
-             this IEnumerable<TSource> source)
+        public static string JoinWithAnd<TSource>(this IEnumerable<TSource> source)
             => source.JoinWithConjunction("and");
 
         /// <summary>
@@ -447,8 +447,7 @@ namespace Magenic.SharedKernel
         /// <typeparam name="TSource">Generic type of the target object for this extension.</typeparam>
         /// <param name="source">An instance of IEnumerable object of type TSource.</param>
         /// <returns>A string that consists of the elements in source delimited by comma and or at the end.</returns>
-        public static string JoinWithOr<TSource>(
-             this IEnumerable<TSource> source)
+        public static string JoinWithOr<TSource>(this IEnumerable<TSource> source)
             => source.JoinWithConjunction("or");
 
         /// <summary>
@@ -586,8 +585,7 @@ namespace Magenic.SharedKernel
         /// </summary>
         public static IEnumerable<TSource> Prepend<TSource>(
              this IEnumerable<TSource> source,
-             TSource element)
-            => List(element).Concat(source);
+             TSource element) => List(element).Concat(source);
 
         /// <summary>
         /// Returns a random reference into source.

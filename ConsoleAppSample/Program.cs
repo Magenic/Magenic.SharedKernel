@@ -35,8 +35,8 @@ namespace ConsoleAppSample
                     $"Random double: {sr.NextDouble()}.",
                     $"Random long: {sr.NextLong()}.",
                     $"Random short: {sr.NextShort()}.",
-                    $"Random alphanumeric string of length {len}: {sr.NextString(16)}.")
-                        .Apply(s => Console.WriteLine(s)));
+                    $"Random alphanumeric string of length {len}: {sr.NextString(len)}.")
+                        .Apply(Console.WriteLine));
 
             Console.WriteLine(Seq.List(
                 "Hit Enter to exit console application.",

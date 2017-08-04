@@ -25,13 +25,7 @@ namespace Magenic.SharedKernel.Tests
             string source = "1234ABE56789";
             string value = "Abe";
 
-            Seq.List(source, value).Apply(s =>
-            {
-                Assert.NotNull(s);
-                Assert.IsType<string>(s);
-                Assert.NotEmpty(s);
-                s.Should().NotBeNullOrWhiteSpace();
-            });
+            Seq.List(source, value).Apply(AssertEx.NotNullOrWhiteSpaceOfType);
 
             Assert.False(source.Contains(
                 value,
@@ -52,15 +46,11 @@ namespace Magenic.SharedKernel.Tests
         {
             Random random = PseudoRandom.Create(1687561716);
 
-            Assert.NotNull(random);
-            Assert.IsType<Random>(random);
+            AssertEx.NotNullOfType<Random>(random);
 
             string s = random.NextString(12);
 
-            Assert.NotNull(s);
-            Assert.IsType<string>(s);
-            Assert.NotEmpty(s);
-            s.Should().NotBeNullOrWhiteSpace();
+            AssertEx.NotNullOrWhiteSpaceOfType(s);
 
             StringBuilder sb0 = StringEx.CreateSB();
             StringBuilder sb1 = StringEx.CreateSB(s);
@@ -75,8 +65,7 @@ namespace Magenic.SharedKernel.Tests
             Assert.Empty(sb0.ToString());
             sb0.ToString().Should().BeNullOrEmpty();
 
-            Assert.NotEmpty(sb1.ToString());
-            sb1.ToString().Should().NotBeNullOrWhiteSpace();
+            AssertEx.NotNullOrWhiteSpaceOfType(sb1.ToString());
             Assert.Equal(s, sb1.ToString());
         }
 
@@ -88,8 +77,7 @@ namespace Magenic.SharedKernel.Tests
         {
             Random random = PseudoRandom.Create(1001336863);
 
-            Assert.NotNull(random);
-            Assert.IsType<Random>(random);
+            AssertEx.NotNullOfType<Random>(random);
 
             char c = random.NextChar(StringComposition.Letter);
             int count = random.Next(16, 32);
@@ -101,9 +89,7 @@ namespace Magenic.SharedKernel.Tests
 
             string s = StringEx.CreateString(c, count);
 
-            Assert.NotNull(s);
-            Assert.IsType<string>(s);
-            Assert.NotEmpty(s);
+            AssertEx.NotNullOrEmptyOfType<string>(s);
             s.Should().NotBeNullOrWhiteSpace();
 
             Assert.Equal(ColEx.Repeat(() => c, count).Join(string.Empty), s);
@@ -133,6 +119,57 @@ namespace Magenic.SharedKernel.Tests
         }
 
         /// <summary>
+        /// A test for StringEx.IsNullOrEmpty and StringEx.IsNullOrWhiteSpace.
+        ///</summary>
+        [Fact]
+        public void String_IsNullOrEmpty_IsNullOrWhiteSpace()
+        {
+            Random random = PseudoRandom.Create(526804642);
+
+            AssertEx.NotNullOfType<Random>(random);
+
+            string nullString = null;
+            string emptyString = string.Empty;
+            string whiteSpaceString = random.NextString(4, StringComposition.WhiteSpace);
+            string alphaNumericString = random
+                .NextString(8, StringComposition.AlphaNumeric);
+
+            Assert.Null(nullString);
+            Seq.List(emptyString, whiteSpaceString).Apply(Assert.NotNull);
+            Assert.Empty(emptyString);
+            Assert.NotEmpty(whiteSpaceString);
+            emptyString.Should().BeNullOrEmpty();
+            whiteSpaceString.Should().NotBeNullOrEmpty();
+            whiteSpaceString.Should().BeNullOrWhiteSpace();
+            Seq.List(whiteSpaceString, alphaNumericString)
+                .Apply(s => AssertEx.NotNullOrEmptyOfType<string>(s));
+            AssertEx.NotNullOrWhiteSpaceOfType(alphaNumericString);
+
+            IEnumerable<string> seq0 = null;
+            IEnumerable<string> seq1 = Enumerable.Empty<string>();
+            IEnumerable<string> seq2 = Seq.List(emptyString);
+            IEnumerable<string> seq3 = Seq.List(whiteSpaceString);
+            IEnumerable<string> seq4 = Seq.List(emptyString, whiteSpaceString);
+            IEnumerable<string> seq5 = Seq.List(alphaNumericString);
+
+            Assert.Null(seq0);
+            Assert.Empty(seq1);
+            Seq.List(seq1, seq2, seq3, seq4, seq5).Apply(Assert.NotNull);
+            Seq.List(seq2, seq3, seq4, seq5).Apply(Assert.NotEmpty);
+
+            Assert.All(
+                Seq.List(seq0, seq1, seq2).Map(StringEx.IsNullOrEmpty),
+                Assert.True);
+            Assert.All(
+                Seq.List(seq0, seq1, seq2, seq3, seq4).Map(StringEx.IsNullOrWhiteSpace),
+                Assert.True);
+            Assert.All(
+                Seq.List(seq3, seq4, seq5).Map(StringEx.IsNullOrEmpty),
+                Assert.False);
+            Assert.False(StringEx.IsNullOrWhiteSpace(seq5));
+        }
+
+        /// <summary>
         /// A test for Prepend.
         ///</summary>
         [Fact]
@@ -140,20 +177,13 @@ namespace Magenic.SharedKernel.Tests
         {
             Random random = PseudoRandom.Create(450441753);
 
-            Assert.NotNull(random);
-            Assert.IsType<Random>(random);
+            AssertEx.NotNullOfType<Random>(random);
 
             string s0 = random.NextString(8);
             string s1 = random.NextString(16);
             string p = s1.Prepend(s0);
 
-            Seq.List(s0, s1, p).Apply(s =>
-            {
-                Assert.NotNull(s);
-                Assert.IsType<string>(s);
-                Assert.NotEmpty(s);
-                s.Should().NotBeNullOrWhiteSpace();
-            });
+            Seq.List(s0, s1, p).Apply(AssertEx.NotNullOrWhiteSpaceOfType);
 
             Assert.Equal(string.Format("{0}{1}", s0, s1), p);
             Assert.Equal($"{s0}{s1}", p);
@@ -167,8 +197,7 @@ namespace Magenic.SharedKernel.Tests
         {
             Random random = PseudoRandom.Create(645439842);
 
-            Assert.NotNull(random);
-            Assert.IsType<Random>(random);
+            AssertEx.NotNullOfType<Random>(random);
 
             string nullString = null;
             string emptyString = string.Empty;
@@ -191,8 +220,7 @@ namespace Magenic.SharedKernel.Tests
             Assert.NotEmpty(whiteSpace);
             whiteSpace.Should().BeNullOrWhiteSpace();
 
-            Assert.NotEmpty(source);
-            source.Should().NotBeNullOrWhiteSpace();
+            AssertEx.NotNullOrWhiteSpaceOfType(source);
 
             Assert.Null(nullString.TrimIfSet());
             Assert.Equal(null, nullString.TrimIfSet());
@@ -241,14 +269,10 @@ namespace Magenic.SharedKernel.Tests
             Assert.Empty(emptyString);
             emptyString.Should().BeNullOrEmpty();
 
-            Assert.NotEmpty(whiteSpace);
-            whiteSpace.Should().BeNullOrWhiteSpace();
+            AssertEx.NotNullOrEmptyOfType<string>(whiteSpace);
 
-            Assert.NotNull(seq);
-            Assert.NotEmpty(seq);
-
-            Assert.NotNull(seq.Map(s => s.Display()));
-            Assert.NotEmpty(seq.Map(s => s.Display()));
+            AssertEx.NotNullOrEmpty(seq);
+            AssertEx.NotNullOrEmpty(seq.Map(s => s.Display()));
 
             seq.Map(s => s.Display()).Should().Equal(seq);
 
