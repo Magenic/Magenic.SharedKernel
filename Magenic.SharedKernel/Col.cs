@@ -191,7 +191,8 @@ namespace Magenic.SharedKernel
         public static TValue TryGetValue<TKey, TValue>(
              this IDictionary<TKey, TValue> map,
              TKey key,
-             TValue value) => (map.ContainsKey(key))
+             TValue value)
+            => (map.ContainsKey(key))
                 ? map[key]
                 : value;
 
@@ -288,8 +289,7 @@ namespace Magenic.SharedKernel
         /// <typeparam name="TSource">Generic data type of the collection.</typeparam>
         /// <param name="col">An object with the type of ICollection<typeparamref name="T>"/>.</param>
         /// <returns>Returns true if collection is empty.</returns>
-        public static bool IsEmpty<TSource>(ICollection<TSource> col)
-            => (col.Count == 0);
+        public static bool IsEmpty<TSource>(ICollection<TSource> col) => (col.Count == 0);
 
         /// <summary>
         /// Returns true if collection is null or empty.

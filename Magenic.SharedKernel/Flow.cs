@@ -64,7 +64,8 @@ namespace Magenic.SharedKernel
         public static TResult IfNotNull<TSource, TResult>(
              this TSource source,
              Func<TSource, TResult> consequent,
-             Func<TResult> alternate) => (source != null)
+             Func<TResult> alternate)
+            => (source != null)
                 ? consequent(source)
                 : alternate();
 

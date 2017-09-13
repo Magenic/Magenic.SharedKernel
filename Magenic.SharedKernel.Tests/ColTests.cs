@@ -47,8 +47,7 @@ namespace Magenic.SharedKernel.Tests
                 { "Second" }
             };
 
-            Assert.NotNull(seqList);
-            Assert.NotEmpty(seqList);
+            AssertEx.NotNullOrEmpty(seqList);
 
             TestEqualityComparerObj comparerObj = new TestEqualityComparerObj();
 
@@ -58,35 +57,29 @@ namespace Magenic.SharedKernel.Tests
             ISet<string> col_SeqAndComparerAreNull = ColEx.CreateSet<string>(
                 seq: null, comparer: null);
 
-            Assert.NotNull(col_SeqAndComparerAreNull);
-            Assert.IsType<HashSet<string>>(col_SeqAndComparerAreNull);
+            AssertEx.NotNullOfType<HashSet<string>>(col_SeqAndComparerAreNull);
             Assert.Equal(new HashSet<string>(), col_SeqAndComparerAreNull);
             col_SeqAndComparerAreNull.Should().Equal(new HashSet<string>());
 
             ISet<string> col_SeqAndComparerAreNotNull = ColEx.CreateSet(
                 seq: seqList, comparer: comparerObj);
 
-            Assert.NotNull(col_SeqAndComparerAreNotNull);
-            Assert.IsType<HashSet<string>>(col_SeqAndComparerAreNotNull);
-            Assert.NotEmpty(col_SeqAndComparerAreNotNull);
+            AssertEx.NotNullOrEmptyOfType<HashSet<string>>(col_SeqAndComparerAreNotNull);
             Assert.Equal(
                 new HashSet<string>(seqList, comparerObj),
                 col_SeqAndComparerAreNotNull);
 
             ISet<string> col_SeqIsNotNull = ColEx.CreateSet(
                 seq: seqList, comparer: null);
-
-            Assert.NotNull(col_SeqIsNotNull);
-            Assert.IsType<HashSet<string>>(col_SeqIsNotNull);
-            Assert.NotEmpty(col_SeqIsNotNull);
+            
+            AssertEx.NotNullOrEmptyOfType<HashSet<string>>(col_SeqIsNotNull);
             Assert.NotNull(new HashSet<string>(seqList));            
             Assert.Equal(new HashSet<string>(seqList), col_SeqIsNotNull);
 
             ISet<string> col_ComprarerIsNotNull = ColEx.CreateSet(
                 seq: null, comparer: comparerObj);
-
-            Assert.NotNull(col_ComprarerIsNotNull);
-            Assert.IsType<HashSet<string>>(col_ComprarerIsNotNull);
+            
+            AssertEx.NotNullOfType<HashSet<string>>(col_ComprarerIsNotNull);
             Assert.NotNull(new HashSet<string>(comparerObj));
             Assert.Equal(new HashSet<string>(comparerObj), col_ComprarerIsNotNull);
         }
@@ -127,8 +120,7 @@ namespace Magenic.SharedKernel.Tests
                 {"SecondId", "SecondValue"}
             };
 
-            Assert.NotNull(mapDictionary);
-            Assert.NotEmpty(mapDictionary);
+            AssertEx.NotNullOrEmptyOfType<Dictionary<string, string>>(mapDictionary);
 
             TestEqualityComparerObj comparerObj = new TestEqualityComparerObj();
 
@@ -347,7 +339,6 @@ namespace Magenic.SharedKernel.Tests
             int value = 516;
             KeyValuePair<string, int> kvp = ColEx.CreateKVP(key, value);
 
-            Assert.NotNull(kvp);
             Assert.IsType<KeyValuePair<string, int>>(kvp);
             Assert.Equal(key, kvp.Key);
             Assert.Equal(value, kvp.Value);
@@ -374,17 +365,14 @@ namespace Magenic.SharedKernel.Tests
             };
             Func<int, KeyValuePair<int, string>> fn = (x) => mapDictionary
                 .First(y => y.Key == 1);
-
-            Assert.NotNull(mapDictionary);
-            Assert.NotEmpty(mapDictionary);
+            
+            AssertEx.NotNullOrEmptyOfType<Dictionary<int, string>>(mapDictionary);
             Assert.NotNull(fn);
 
             IList<KeyValuePair<int, string>> col_Repeat = ColEx
                 .Repeat(fn: fn, count: repeatCount);
 
-            Assert.NotNull(col_Repeat);
-            Assert.IsType<List<KeyValuePair<int, string>>>(col_Repeat);
-            Assert.NotEmpty(col_Repeat);
+            AssertEx.NotNullOrEmptyOfType<List<KeyValuePair<int, string>>>(col_Repeat);
             Assert.Equal(repeatCount, col_Repeat.Count);
             Assert.Equal(
                 initialValue,
@@ -405,14 +393,23 @@ namespace Magenic.SharedKernel.Tests
             IList<KeyValuePair<int, string>> col_Repeat_Single = ColEx.Repeat(
                 fn: fn_single, count: repeatCount);
 
-            Assert.NotNull(col_Repeat_Single);
-            Assert.IsType<List<KeyValuePair<int, string>>>(col_Repeat_Single);
-            Assert.NotEmpty(col_Repeat_Single);
+            AssertEx.NotNullOrEmptyOfType<List<KeyValuePair<int, string>>>(
+                col_Repeat_Single);
             Assert.Equal(repeatCount, col_Repeat_Single.Count);
-            Assert.Equal("Initial Value", col_Repeat_Single.Skip(repeatCount - 1)
-                .Select(m => m.Value).First().ToString());
-            Assert.Equal("1", col_Repeat_Single.Skip(repeatCount - 1)
-                .Select(m => m.Key).First().ToString());
+            Assert.Equal(
+                "Initial Value",
+                col_Repeat_Single
+                    .Skip(repeatCount - 1)
+                    .Map(m => m.Value)
+                    .First()
+                    .ToString());
+            Assert.Equal(
+                "1",
+                col_Repeat_Single
+                    .Skip(repeatCount - 1)
+                    .Select(m => m.Key)
+                    .First()
+                    .ToString());
         }
 
         /// <summary>
@@ -421,24 +418,24 @@ namespace Magenic.SharedKernel.Tests
         [Fact]
         public void Col_Repeat_2()
         {
-            Random random0 = PseudoRandom.Create(6533587);
+            int seed = 6533587;
+            Random random0 = PseudoRandom.Create(seed);
 
-            Assert.NotNull(random0);
-            Assert.IsType<Random>(random0);
+            AssertEx.NotNullOfType<Random>(random0);
 
             IList<string> list0 = ColEx.Repeat(
                 () => random0.NextString(random0.Next(4, 32)), random0.Next(128, 256));
 
-            Assert.NotNull(list0);
+            AssertEx.NotNullOrEmptyOfType<List<string>>(list0);
 
-            Random random1 = PseudoRandom.Create(6533587);
+            Random random1 = PseudoRandom.Create(seed);
 
-            Assert.NotNull(random1);
-            Assert.IsType<Random>(random1);
+            AssertEx.NotNullOfType<Random>(random1);
 
             IList<string> list1 = ColEx.CreateList<string>();
 
             Assert.NotNull(list1);
+            Assert.Empty(list1);
 
             int count = random1.Next(128, 256);
 

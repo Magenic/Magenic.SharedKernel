@@ -55,18 +55,11 @@ namespace Magenic.SharedKernel.Tests
 
                     LongRunningMethod();
 
-                    Assert.NotNull(timer);
-                    Assert.IsType<CodeTimer>(timer);
+                    AssertEx.NotNullOfType<CodeTimer>(timer);
 
                     msg = timer.Message;
 
-                    Seq.List(
-                        msg,
-                        timer.StepName).Apply(m =>
-                        {
-                            AssertEx.NotNullOrEmptyOfType<string>(m);
-                            m.Should().NotBeNullOrWhiteSpace();
-                        });
+                    Seq.List(msg, timer.StepName).Apply(AssertEx.NotNullOrWhiteSpaceOfType);
 
                     msg.Should().Contain("running");
                     msg.Should().NotContain("completed");
@@ -74,8 +67,7 @@ namespace Magenic.SharedKernel.Tests
                     Assert.Equal(nameof(CodeTimerTest_Message), timer.StepName);
                 });
 
-            Assert.NotNull(timer);
-            Assert.IsType<CodeTimer>(timer);
+            AssertEx.NotNullOfType<CodeTimer>(timer);
 
             AssertMessageAndToString(timer.Message);
         }
@@ -98,8 +90,7 @@ namespace Magenic.SharedKernel.Tests
 
                     LongRunningMethod();
 
-                    Assert.NotNull(timer);
-                    Assert.IsType<CodeTimer>(timer);
+                    AssertEx.NotNullOfType<CodeTimer>(timer);
 
                     TimeSpan elapsed = timer.Elapsed;
 
@@ -108,11 +99,7 @@ namespace Magenic.SharedKernel.Tests
 
                     Seq.List(
                         timer.ElapsedText,
-                        timer.StepName).Apply(m =>
-                        {
-                            AssertEx.NotNullOrEmptyOfType<string>(m);
-                            m.Should().NotBeNullOrWhiteSpace();
-                        });
+                        timer.StepName).Apply(AssertEx.NotNullOrWhiteSpaceOfType);
 
                     Assert.Equal(nameof(CodeTimerTest_Elapsed), timer.StepName);
                 });
@@ -139,26 +126,21 @@ namespace Magenic.SharedKernel.Tests
 
                     LongRunningMethod();
 
-                    Assert.NotNull(timer);
-                    Assert.IsType<CodeTimer>(timer);
+                    AssertEx.NotNullOfType<CodeTimer>(timer);
 
                     timerString = timer.ToString();
 
                     Seq.List(
                         timerString,
-                        timer.StepName).Apply(m =>
-                        {
-                            AssertEx.NotNullOrEmptyOfType<string>(m);
-                            m.Should().NotBeNullOrWhiteSpace();
-                        });
+                        timer.StepName).Apply(AssertEx.NotNullOrWhiteSpaceOfType);
 
                     timerString.Should().Contain("running");
                     timerString.Should().NotContain("completed");
+
                     Assert.Equal(nameof(CodeTimerTest_ToString), timer.StepName);
                 });
 
-            Assert.NotNull(timer);
-            Assert.IsType<CodeTimer>(timer);
+            AssertEx.NotNullOfType<CodeTimer>(timer);
 
             AssertMessageAndToString(timer.ToString());
         }

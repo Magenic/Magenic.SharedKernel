@@ -56,7 +56,7 @@ namespace Magenic.SharedKernel.Tests
     /// </summary>
     /// <typeparam name="T">Type of the object.</typeparam>
     /// <param name="obj">The object to be evaluated.</param>
-    public static void NotNullOfType<T>(T obj)
+    public static void NotNullOfType<T>(object obj)
             where T : class
         {
             Assert.NotNull(obj);

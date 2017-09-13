@@ -32,28 +32,21 @@ namespace Magenic.SharedKernel
         /// <summary>
         /// Creates string comprised of c repeated count times.
         /// </summary>
-        public static string CreateString(char c, int count)
-        {
-            return new string(c, count);
-        }
+        public static string CreateString(char c, int count) => new string(c, count);
 
         /// <summary>
         /// Creates String Builder.
         /// </summary>
         public static StringBuilder CreateSB(string value = null)
-        {
-            return (!string.IsNullOrEmpty(value))
+            => (!string.IsNullOrEmpty(value))
                 ? new StringBuilder(value)
                 : new StringBuilder();
-        }
 
         /// <summary>
         /// Returns true if string is empty.
         /// </summary>
         public static bool IsEmpty(this string source)
-        {
-            return (source.CompareTo(string.Empty) == 0);
-        }
+            => (source.CompareTo(string.Empty) == 0);
 
         /// <summary>
         /// Determines whether source contains value using comparisonType.
@@ -62,9 +55,7 @@ namespace Magenic.SharedKernel
             this string source,
             string value,
             StringComparison comparisonType)
-        {
-            return (source.IndexOf(value, comparisonType) != -1);
-        }
+            => (source.IndexOf(value, comparisonType) != -1);
 
         /// <summary>
         /// Handles null, empty, white space and set strings for display.
@@ -99,9 +90,7 @@ namespace Magenic.SharedKernel
         /// <param name="source">A sequence of strings.</param>
         /// <returns>Boolean.</returns>
         public static bool IsNullOrEmpty(IEnumerable<string> source)
-        {
-            return WithIsNullOrEmptyOrAll(source, string.IsNullOrEmpty);
-        }
+            => WithIsNullOrEmptyOrAll(source, string.IsNullOrEmpty);
 
         /// <summary>
         /// Returns true if passed in string sequence is null or empty.
@@ -111,29 +100,19 @@ namespace Magenic.SharedKernel
         /// <param name="source">A sequence of strings.</param>
         /// <returns>Boolean.</returns>
         public static bool IsNullOrWhiteSpace(IEnumerable<string> source)
-        {
-            return WithIsNullOrEmptyOrAll(source, string.IsNullOrWhiteSpace);
-        }
+            => WithIsNullOrEmptyOrAll(source, string.IsNullOrWhiteSpace);
 
         /// <summary>
         /// Generates a new string comprised of value and source in that order.
         /// </summary>
-        public static string Prepend(
-            this string source,
-            string value)
-        {
-            return $"{value}{source}";
-        }
+        public static string Prepend(this string source, string value)
+            => $"{value}{source}";
 
         /// <summary>
         /// Clears source and then appends value to it.
         /// </summary>
-        public static StringBuilder Set(
-            this StringBuilder source,
-            string value)
-        {
-            return source.Clear().Append(value);
-        }
+        public static StringBuilder Set(this StringBuilder source, string value)
+            => source.Clear().Append(value);
 
         /// <summary>
         /// Trims passed in string if it is not null or empty.
@@ -141,11 +120,9 @@ namespace Magenic.SharedKernel
         /// <param name="text">String.</param>
         /// <returns>Trimmed string.</returns>
         public static string TrimIfSet(this string text)
-        {
-            return (!string.IsNullOrEmpty(text))
+            => (!string.IsNullOrEmpty(text))
                 ? text.Trim()
                 : text;
-        }
 
         #endregion
 
@@ -154,9 +131,7 @@ namespace Magenic.SharedKernel
         private static bool WithIsNullOrEmptyOrAll(
             IEnumerable<string> source,
             Func<string, bool> fnAll)
-        {
-            return (Seq.IsNullOrEmpty(source) || source.All(fnAll));
-        }
+            => (Seq.IsNullOrEmpty(source) || source.All(fnAll));
 
         #endregion
     }

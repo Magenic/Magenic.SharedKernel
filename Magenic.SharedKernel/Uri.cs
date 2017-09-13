@@ -31,11 +31,9 @@ namespace Magenic.SharedKernel
         /// <param name="relativeUri">Relative Uri.</param>
         /// <returns>Combined Uri.</returns>
         public static Uri Create(string baseUri, string relativeUri)
-        {
-            return new Uri(
+            => new Uri(
                 new Uri(baseUri.EndsWith("/") ? baseUri : $"{baseUri}/"),
                 relativeUri);
-        }
 
         /// <summary>
         /// Builds Uri from Base Uri and Relative Uri.
@@ -44,9 +42,7 @@ namespace Magenic.SharedKernel
         /// <param name="relativeUri">Relative Uri.</param>
         /// <returns>Combined Uri.</returns>
         public static Uri Create(Uri baseUri, string relativeUri)
-        {
-            return Create(baseUri.AbsoluteUri, relativeUri);
-        }
+            => Create(baseUri.AbsoluteUri, relativeUri);
 
         /// <summary>
         /// Sets scheme.

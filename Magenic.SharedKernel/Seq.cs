@@ -343,10 +343,7 @@ namespace Magenic.SharedKernel
         /// <typeparam name="TSource">Generic object that is the target of this extension.</typeparam>
         /// <param name="source">Instance of IEnumerable object of type TSource.</param>
         /// <returns>True if empty otherwise False.</returns>
-        public static bool IsEmpty<TSource>(IEnumerable<TSource> source)
-        {
-            return !source.Any();
-        }
+        public static bool IsEmpty<TSource>(IEnumerable<TSource> source) => !source.Any();
 
         /// <summary>
         /// Checks if sequence is null or empty.
@@ -354,9 +351,7 @@ namespace Magenic.SharedKernel
         /// <param name="source">A sequence of TSource objects.</param>
         /// <returns>True if source is null or empty otherwise False.</returns>
         public static bool IsNullOrEmpty<TSource>(IEnumerable<TSource> source)
-        {
-            return (source == null || IsEmpty(source));
-        }
+            => (source == null || IsEmpty(source));
 
         /// <summary>
         /// Determines whether subset sequence is a subset of superset sequence.
@@ -368,9 +363,7 @@ namespace Magenic.SharedKernel
         public static bool IsSubsetOf<TSource>(
              IEnumerable<TSource> subset,
              IEnumerable<TSource> superset)
-        {
-            return ColEx.CreateSet(subset).IsSubsetOf(superset);
-        }
+            => ColEx.CreateSet(subset).IsSubsetOf(superset);
 
         /// <summary>
         /// Concatenates all the elements of source using the specified separator between each element. 
@@ -711,13 +704,11 @@ namespace Magenic.SharedKernel
         public static IEnumerable<TSource> PairwiseMerge<TSource>(
             IEnumerable<TSource> first,
             IEnumerable<TSource> second)
-        {
-            return (List(first, second).All(seq => seq != null))
+            => (List(first, second).All(seq => seq != null))
                 ? Map(first, second, Tuple.Create)
                     .FlatMap(t => List(t.Item1, t.Item2))
                     .Append(GetTail(first, second))
                 : first ?? second;
-        }
 
         #endregion
 

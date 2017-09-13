@@ -23,16 +23,14 @@ namespace Magenic.SharedKernel.Tests
         {
             char[] arr = new char[0];
 
-            Assert.NotNull(arr);
+            AssertEx.NotNullOfType<char[]>(arr);
             Assert.Equal(0, arr.Length);
             Assert.Equal(0, arr.Count());
-            Assert.IsType<char[]>(arr);
 
             Assert.True(Array.Empty<int>().IsEmpty());
             Array.Empty<int>().Should().BeEmpty();
             Assert.True(arr.IsEmpty());
-            Array.Empty<int>().Should().BeEmpty();
-            arr.Should().BeEmpty();
+            Assert.Empty(arr);
         }
 
         /// <summary>
@@ -55,16 +53,14 @@ namespace Magenic.SharedKernel.Tests
         public void Array_RandomRef()
         {
             Random random = PseudoRandom.Create(2131709272);
-            IEnumerable<int> seq = Seq.List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            IEnumerable<int> seq = Enumerable.Range(0, 10);
 
-            Seq.List<object>(random, seq).Apply(o => Assert.NotNull(o));
-            seq.Should().NotBeEmpty();
+            AssertEx.NotNullOfType<Random>(random);
+            AssertEx.NotNullOrEmpty(seq);
 
             int[] arr = seq.ToArray();
 
-            arr.Should().NotBeNull();
-            arr.Should().NotBeEmpty();
-            arr.Should().BeOfType(typeof(int[]));
+            AssertEx.NotNullOrEmptyOfType<int[]>(arr);
             arr.Should().Equal(seq);
 
             int count = random.Next(64, 128);

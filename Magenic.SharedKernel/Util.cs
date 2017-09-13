@@ -16,10 +16,7 @@ namespace Magenic.SharedKernel
         /// <param name="thunk">Parameterless method with void return type.</param>
         /// <param name="count">Number of times to execute thunk.</param>
         public static void Repeat(Action thunk, int count)
-        {
-            // The boolean true is a don’t care.
-            Enumerable.Repeat(true, count).Apply(t => thunk());
-        }
+            => Enumerable.Repeat(true, count).Apply(t => thunk());
 
         /// <summary>
         /// Repeats the specified action fn count times while passing the running count to each execution.
@@ -27,9 +24,7 @@ namespace Magenic.SharedKernel
         /// <param name="fn">Method that takes an integer and is of void return type.</param>
         /// <param name="count">Number of times to execute fn.</param>
         public static void Repeat(Action<int> fn, int count)
-        {
-            Enumerable.Range(0, count).Apply(i => fn(i));
-        }
+            => Enumerable.Range(0, count).Apply(i => fn(i));
 
         /// <summary>
         /// Disposes of source if it is not null.
@@ -38,18 +33,14 @@ namespace Magenic.SharedKernel
         /// <param name="source">A disposable object.</param>
         public static void Dispose<TSource>(TSource source)
             where TSource : IDisposable
-        {
-            source?.Dispose();
-        }
+            => source?.Dispose();
 
         /// <summary>
         /// Disposes of obj if it is not null and if it implements IDisposable.
         /// </summary>
         /// <param name="obj">Object.</param>
         public static void Dispose(object obj)
-        {
-            Dispose(obj.IfNotNull(o => o as IDisposable, () => null));
-        }
+            => Dispose(obj.IfNotNull(o => o as IDisposable, () => null));
 
         /// <summary>
         /// Disposes of source if it is not null and sets it to null after disposing.

@@ -19,11 +19,9 @@ namespace Magenic.SharedKernel
         /// <param name="defaultValue">Default value if invalid or null.</param>
         /// <returns>Enum value.</returns>
         public static TEnum ToEnum<TEnum>(string value, TEnum defaultValue)
-        {
-            return Enum.IsDefined(typeof(TEnum), value)
+            => Enum.IsDefined(typeof(TEnum), value)
                 ? (TEnum)Enum.Parse(typeof(TEnum), value)
                 : defaultValue;
-        }
 
         /// <summary>
         /// Converts string value to enum value. Throws KeyNotFoundException if invalid 
@@ -72,11 +70,9 @@ namespace Magenic.SharedKernel
         /// <param name="textValues">Raw string array of values (names or numeric).</param>
         /// <returns>Enum list.</returns>
         public static IList<TEnum> ToEnumList<TEnum>(string[] textValues)
-        {
-            return textValues
+            => textValues
                 .Map(textValue => (TEnum)Enum.Parse(typeof(TEnum), textValue))
                 .ToList();
-        }
 
         /// <summary>
         /// Takes a string separated by specified separator and converts to a list of enums. 

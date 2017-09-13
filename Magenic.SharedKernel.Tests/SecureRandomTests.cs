@@ -53,7 +53,7 @@ namespace Magenic.SharedKernel.Tests
             {
                 AssertEx.NotNullOfType<SecureRandom>(sr);
 
-                int count = sr.Next(16, 32);
+                int count = sr.Next(1024, 2048);
 
                 IEnumerable<int> seq = Seq.Repeat(
                     () => sr.Next(),
