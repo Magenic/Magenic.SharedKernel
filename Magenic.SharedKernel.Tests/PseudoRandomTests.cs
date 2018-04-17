@@ -159,21 +159,7 @@ namespace Magenic.SharedKernel.Tests
             Assert.NotNull(list);
             Assert.IsType<List<int>>(list);
             Assert.NotEmpty(list);
-            list.Should().OnlyHaveUniqueItems();
-
-            Random random0 = PseudoRandom.CreateWithTimeDependentSeed();
-            Random random1 = new Random();
-
-            Seq.List(random0, random1).Apply(r =>
-            {
-                Assert.NotNull(r);
-                Assert.IsType<Random>(r);
-            });
-
-            // Tests that random object created using CreateWithTimeDependentSeed 
-            // behaves the same way as new Random() and produces the same pseudo 
-            // random sequences.
-            Util.Repeat(() => Assert.Equal(random0.Next(), random1.Next()), 10);           
+            list.Should().OnlyHaveUniqueItems();       
         }
 
         /// <summary>
